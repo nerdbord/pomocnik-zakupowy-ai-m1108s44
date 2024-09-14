@@ -4,7 +4,7 @@ export const FAQs = () => {
   return (
     <section className="bg-background-primary py-24">
       <div className="container mx-auto flex w-full max-w-7xl justify-between">
-        <h3>FAQs</h3>
+        <h3 className="title">FAQs</h3>
         <div className="basis-2/3">
           <ul>
             {FAQ_ITEMS.map(({ id, question, answer }) => (

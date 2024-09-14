@@ -6,7 +6,7 @@ export const Features = () => {
     <section className="bg-background-secondary py-24">
       <div className="container mx-auto flex w-full max-w-7xl justify-between gap-24">
         <div className="basis-1/2">
-          <h3 className="pb-8">How it works</h3>
+          <h3 className="title pb-8">How it works</h3>
           <ul className="flex flex-col gap-4">
             {FEATURE_ITEMS.map(({ id, title, description }) => (
               <li
