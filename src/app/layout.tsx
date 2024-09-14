@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden text-primary antialiased`}
       >
-        <div className="container mx-auto">
+        <div className="container mx-auto max-w-7xl">
           <Header />
           {children}
         </div>
