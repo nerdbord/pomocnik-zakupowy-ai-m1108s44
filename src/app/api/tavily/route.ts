@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
+import { generateObject } from "ai";
+import { z } from "zod";
+import { openai } from "@ai-sdk/openai";
 
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -42,36 +45,59 @@ export async function POST(req: NextRequest) {
       })
       .join("");
 
-    const openAIResponse = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content: `
+    const { object } = await generateObject({
+      model: openai("gpt-4-turbo"),
+      schema: z.object({
+        data: z
+          .object({
+            title: z.string(),
+            price: z.string(),
+            image: z.string(),
+            link: z.string(),
+          })
+          .array(),
+      }),
+      system: `
             Jesteś asystentem zakupowym. Twoim zadaniem jest przetworzenie wyników wyszukiwania ze sklepu na poprawny JSON, gdzie pola "title" to tytuł produktu, "price" to cena (jeśli cena jest dostępna, wyodrębnij ją z opisu), "image" to link do obrazu produktu, a "link" to link do sklepu. 
             Ignoruj produkty, które nie mają ceny. Wybierz maksymalnie 3 produkty z najniższą ceną.
             Pamietaj ze cena powinna byc oznaczona na koncu waluta jak PLN
             JSON powinien zawierać tylko pola: "title", "price", "image", "link".
             Dla image wybierz zdjecie najpierw 1 pozniej 2 i na koncu 3 zeby zawsze byly rozne z tych ktore dostaniesz.
             `,
-          },
-          {
-            role: "user",
-            content: `Oto wyniki wyszukiwania: ${formattedResults}. Proszę, przeanalizuj dane i zwróć tylko prawidłowe wartości w formacie JSON. Nie zwracaj nic poza JSONEM!`,
-          },
-        ],
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${OPENAI_API_KEY}`,
-        },
-      },
-    );
+      prompt: `Oto wyniki wyszukiwania: ${formattedResults}. Proszę, przeanalizuj dane i zwróć tylko prawidłowe wartości w formacie JSON. Nie zwracaj nic poza JSONEM!`,
+    });
 
-    const aiResult = openAIResponse.data.choices[0].message.content;
+    // const openAIResponse = await axios.post(
+    //   "https://api.openai.com/v1/chat/completions",
+    //   {
+    //     model: "gpt-4",
+    //     messages: [
+    //       {
+    //         role: "system",
+    //         content: `
+    //         Jesteś asystentem zakupowym. Twoim zadaniem jest przetworzenie wyników wyszukiwania ze sklepu na poprawny JSON, gdzie pola "title" to tytuł produktu, "price" to cena (jeśli cena jest dostępna, wyodrębnij ją z opisu), "image" to link do obrazu produktu, a "link" to link do sklepu.
+    //         Ignoruj produkty, które nie mają ceny. Wybierz maksymalnie 3 produkty z najniższą ceną.
+    //         Pamietaj ze cena powinna byc oznaczona na koncu waluta jak PLN
+    //         JSON powinien zawierać tylko pola: "title", "price", "image", "link".
+    //         Dla image wybierz zdjecie najpierw 1 pozniej 2 i na koncu 3 zeby zawsze byly rozne z tych ktore dostaniesz.
+    //         `,
+    //       },
+    //       {
+    //         role: "user",
+    //         content: `Oto wyniki wyszukiwania: ${formattedResults}. Proszę, przeanalizuj dane i zwróć tylko prawidłowe wartości w formacie JSON. Nie zwracaj nic poza JSONEM!`,
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${OPENAI_API_KEY}`,
+    //     },
+    //   },
+    // );
+
+    // const aiResult = object.data.choices[0].message.content;
+    const aiResult = object.data;
 
     return NextResponse.json({ answer: aiResult });
   } catch (error) {

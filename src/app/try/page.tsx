@@ -1,8 +1,54 @@
+"use client";
+
 import { UserButton } from "@clerk/nextjs";
+import { Message, useChat } from "ai/react";
+import axios from "axios";
+import Image from "next/image";
 import NextImage from "next/image";
 import Link from "next/link";
+import { FormEvent, useState } from "react";
 
 export default function Try() {
+  const initialMessages: Message[] = [
+    {
+      id: "2",
+      role: "assistant",
+      content: "W czym mogę Ci pomóc?",
+    },
+  ];
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit: handleSubmitToChat,
+  } = useChat({ initialMessages });
+  const [results, setResults] = useState<string[] | null>(null);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const lastMessage = messages[messages.length - 1].content;
+
+    console.log(lastMessage);
+
+    if (
+      lastMessage.includes("Teraz szukam dla ciebie najlepszych propozycji!")
+    ) {
+      console.log("tak");
+
+      const userQuery = lastMessage
+        .replace("Teraz szukam dla ciebie najlepszych propozycji!", "")
+        .trim();
+
+      const tavilyResponse = await axios.post("/api/tavily", { userQuery });
+
+      const formattedResults = await tavilyResponse.data; // Odpowiedź w formacie JSON z Tavily
+      setResults(await formattedResults.answer);
+      console.log(results);
+    }
+
+    handleSubmitToChat(e);
+  };
+
   return (
     <div className="h-dvh min-h-dvh px-16 pb-20 pt-8">
       <section className="flex h-full justify-between gap-20">
@@ -71,25 +117,37 @@ export default function Try() {
           </div>
           <div>
             <ul>
-              <li className="chat chat-start">
-                <div className="avatar chat-image">
-                  <div className="w-10 rounded-full">
-                    <img
-                      alt="Tailwind CSS chat bubble component"
-                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    />
+              {messages.map(({ id, role, content }) => (
+                <li key={id} className="chat chat-start">
+                  <div className="avatar chat-image">
+                    <div className="w-10 rounded-full">
+                      <img
+                        alt="Tailwind CSS chat bubble component"
+                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="bg-color-gray chat-bubble">
-                  It was said that you would, destroy the Sith, not join them.
-                </div>
-              </li>
+                  <div className="bg-color-gray chat-bubble">{content}</div>
+                </li>
+              ))}
+              {results &&
+                results.length > 0 &&
+                results.map(({ image, title, price, link }) => (
+                  <li key={title} className="chat chat-start">
+                    <img src={image} width={200} height={200} alt={title} />
+                    <div>{title}</div>
+                    <div>{price}</div>
+                    <div>{link}</div>
+                  </li>
+                ))}
             </ul>
-            <form className="mt-8 flex">
+            <form onSubmit={handleSubmit} className="mt-8 flex">
               <input
                 type="text"
                 placeholder="Type here..."
                 className="bg-color-gray input w-full"
+                value={input}
+                onChange={handleInputChange}
               />
               <button type="submit" className="btn btn-primary">
                 Send
