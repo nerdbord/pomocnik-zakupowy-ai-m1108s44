@@ -4,17 +4,17 @@ export const NAV_ITEMS: NAV_ITEM[] = [
   {
     id: "product",
     label: "Product",
-    href: "/product",
+    href: "/",
   },
   {
     id: "pricing",
     label: "Pricing",
-    href: "/pricing",
+    href: "/",
   },
   {
     id: "company",
     label: "Company",
-    href: "/company",
+    href: "/",
   },
 ];
 
@@ -39,7 +39,7 @@ export const FEATURE_ITEMS: FEATURE_ITEM[] = [
 export const FAQ_ITEMS: FAQ_ITEM[] = [
   {
     id: 0,
-    question: "What is the benefit of creating an account?",
+    question: "What is the benefit of creating account?",
     answer:
       "Creating an account is quick and simple. It allows you to save your preferences and access personalized features. Sign up today to enhance your shopping experience!",
   },
@@ -57,7 +57,7 @@ export const FAQ_ITEMS: FAQ_ITEM[] = [
   },
   {
     id: 4,
-    question: "What should I do if I encounter an issue or error?",
+    question: "What should I do if I encounter issue or error?",
     answer:
       "If you encounter an issue or error,  contact our support team through the help section for assistance.",
   },

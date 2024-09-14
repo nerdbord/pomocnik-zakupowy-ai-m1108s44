@@ -31,7 +31,7 @@ export default function LayoutWithNavigation({
               </address>
             </section>
             <nav>
-              <ul className="flex gap-4 font-bold">
+              <ul className="flex flex-col gap-4 font-bold md:flex-row">
                 {NAV_ITEMS.map(({ id, label, href }) => (
                   <li key={id}>
                     <Link href={href}>{label}</Link>
@@ -41,17 +41,19 @@ export default function LayoutWithNavigation({
             </nav>
           </section>
           <div className="divider divider-accent" />
-          <section className="flex justify-between">
-            <p>© 2024 ava. All rights reserved.</p>
+          <section className="flex flex-col justify-between gap-6 md:flex-row">
+            <p className="text-center md:text-left">
+              © 2024 ava. All rights reserved.
+            </p>
             <ul className="flex gap-4">
               <li>
-                <Link href="/privacy-policy">Privacy Policy</Link>
+                <Link href="/">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="/terms-of-service">Terms of Service</Link>
+                <Link href="/">Terms of Service</Link>
               </li>
               <li>
-                <Link href="/cookies-settings">Cookies Settings</Link>
+                <Link href="/">Cookies Settings</Link>
               </li>
             </ul>
           </section>

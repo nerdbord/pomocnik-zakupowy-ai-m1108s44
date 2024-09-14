@@ -4,7 +4,7 @@ import NextImage from "next/image";
 export const Features = () => {
   return (
     <section className="bg-background-secondary py-24">
-      <div className="container mx-auto flex w-full max-w-7xl justify-between gap-24">
+      <div className="container mx-auto w-full max-w-7xl justify-between gap-24 lg:flex">
         <div className="basis-1/2">
           <h3 className="title pb-8">How it works</h3>
           <ul className="flex flex-col gap-4">
@@ -19,7 +19,7 @@ export const Features = () => {
             ))}
           </ul>
         </div>
-        <figure className="flex aspect-square basis-1/2 items-center">
+        <figure className="flex aspect-square basis-1/2 items-center justify-center">
           <NextImage
             src="/images/macbook-pro-16-inch.png"
             width={600}
