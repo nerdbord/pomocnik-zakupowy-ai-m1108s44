@@ -15,12 +15,9 @@ export default function Try() {
       content: "Hi! What are you looking for today?",
     },
   ];
-  const {
-    messages,
-    input,
-    handleInputChange,
-    handleSubmit: handleSubmitToChat,
-  } = useChat({ initialMessages });
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    initialMessages,
+  });
   const mockedResults = [
     {
       title: "Adiki",
@@ -52,30 +49,31 @@ export default function Try() {
     }
   }, [messages]);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const lastMessage = messages[messages.length - 1].content;
+  useEffect(() => {
+    const getResults = async () => {
+      const lastMessage = messages[messages.length - 1].content;
 
-    console.log(lastMessage);
+      console.log(lastMessage);
 
-    if (
-      lastMessage.includes("Teraz szukam dla ciebie najlepszych propozycji!")
-    ) {
-      console.log("tak");
+      if (
+        lastMessage.includes("Teraz szukam dla ciebie najlepszych propozycji!")
+      ) {
+        console.log("tak");
 
-      const userQuery = lastMessage
-        .replace("Teraz szukam dla ciebie najlepszych propozycji!", "")
-        .trim();
+        const userQuery = lastMessage
+          .replace("Teraz szukam dla ciebie najlepszych propozycji!", "")
+          .trim();
 
-      const tavilyResponse = await axios.post("/api/tavily", { userQuery });
+        const tavilyResponse = await axios.post("/api/tavily", { userQuery });
 
-      const formattedResults = await tavilyResponse.data; // Odpowiedź w formacie JSON z Tavily
-      setResults(await formattedResults.answer);
-      console.log(results);
-    }
+        const formattedResults = await tavilyResponse.data;
+        setResults(await formattedResults.answer);
+        console.log(results);
+      }
+    };
 
-    handleSubmitToChat(e);
-  };
+    getResults();
+  }, [messages, results]);
 
   return (
     <div className="h-dvh min-h-dvh px-16 pb-20 pt-8">
