@@ -13,3 +13,8 @@
 .btn-primary:hover {
   @apply bg-[#444444];
 }
+
+h3 {
+  @apply text-5xl;
+  @apply font-bold;
+}
