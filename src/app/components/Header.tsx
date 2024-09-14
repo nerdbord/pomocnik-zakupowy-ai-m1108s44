@@ -1,4 +1,5 @@
 import { NAV_ITEMS } from "@/constants";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 export const Header = () => {
@@ -14,10 +15,16 @@ export const Header = () => {
           ))}
         </ul>
         <ul className="flex gap-4">
-          <li>
-            <Link href="/log-in" className="btn">
-              Log in
-            </Link>
+          <li className="flex items-center">
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+
+            <SignedOut>
+              <Link href="/sign-up" className="btn">
+                Log in
+              </Link>
+            </SignedOut>
           </li>
           <li>
             <Link href="/try" className="btn btn-primary text-white">
