@@ -5,7 +5,6 @@ import { z } from "zod";
 import { openai } from "@ai-sdk/openai";
 
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 interface TavilyResult {
   title: string;
@@ -20,7 +19,8 @@ interface TavilyResponse {
 
 export async function POST(req: NextRequest) {
   try {
-    const { userQuery } = await req.json();
+    // Pobieramy userQuery oraz userBudget z zapytania
+    const { userQuery, userBudget } = await req.json();
 
     const tavilyResponse = await axios.post<TavilyResponse>(
       "https://api.tavily.com/search",
@@ -35,7 +35,6 @@ export async function POST(req: NextRequest) {
       },
     );
 
-    console.log(tavilyResponse.data);
     const searchResults = tavilyResponse.data.results;
     const formattedResults = searchResults
       .map((result) => {
@@ -45,6 +44,7 @@ export async function POST(req: NextRequest) {
       })
       .join("");
 
+    // Generowanie odpowiedzi z OpenAI, przetwarzającej wyniki
     const { object } = await generateObject({
       model: openai("gpt-4-turbo"),
       schema: z.object({
@@ -58,45 +58,21 @@ export async function POST(req: NextRequest) {
           .array(),
       }),
       system: `
-            Jesteś asystentem zakupowym. Twoim zadaniem jest przetworzenie wyników wyszukiwania ze sklepu na poprawny JSON, gdzie pola "title" to tytuł produktu, "price" to cena (jeśli cena jest dostępna, wyodrębnij ją z opisu), "image" to link do obrazu produktu, a "link" to link do sklepu. 
-            Ignoruj produkty, które nie mają ceny. Wybierz maksymalnie 3 produkty z najniższą ceną.
-            Pamietaj ze cena powinna byc oznaczona na koncu waluta jak PLN
-            JSON powinien zawierać tylko pola: "title", "price", "image", "link".
-            Dla image wybierz zdjecie najpierw 1 pozniej 2 i na koncu 3 zeby zawsze byly rozne z tych ktore dostaniesz.
-            `,
-      prompt: `Oto wyniki wyszukiwania: ${formattedResults}. Proszę, przeanalizuj dane i zwróć tylko prawidłowe wartości w formacie JSON. Nie zwracaj nic poza JSONEM!`,
+        Jesteś asystentem zakupowym. Twoim zadaniem jest przetworzenie wyników wyszukiwania ze sklepu na poprawny JSON, gdzie pola "title" to tytuł produktu, "price" to cena (jeśli cena jest dostępna, wyodrębnij ją z opisu), "image" to link do obrazu produktu, a "link" to link do sklepu. 
+        Ignoruj produkty, które nie mają ceny. Wybierz maksymalnie 3 produkty, które są najbliżej podanej przez użytkownika ceny, pomijając najtańsze produkty.
+        Jeśli link do sklepu to będzie archiwum.allegro.pl to zignoruj i wybierz inne zamiast tego nawet jeśli pasuje pod opis.
+        Jeśli w linku znajdziesz coś jak allegro.pl/listing? to też to zignoruj i wybierz inne.
+        Upewnij się, że cena w JSON-ie zawiera jednostkę waluty PLN.
+        JSON powinien zawierać tylko pola: "title", "price", "image", "link".
+        Dla image wybierz zdjecie najpierw 1, potem 2, a na końcu 3, aby zawsze były różne z tych, które dostaniesz.
+      `,
+      prompt: `
+        Oto wyniki wyszukiwania: ${formattedResults}.
+        Użytkownik podał budżet ${userBudget} PLN. Proszę, przeanalizuj dane i zwróć tylko prawidłowe wartości w formacie JSON, wybierając produkty najbliżej tej ceny, ale pomijając najtańsze produkty.
+        Nie zwracaj nic poza JSONEM!
+      `,
     });
 
-    // const openAIResponse = await axios.post(
-    //   "https://api.openai.com/v1/chat/completions",
-    //   {
-    //     model: "gpt-4",
-    //     messages: [
-    //       {
-    //         role: "system",
-    //         content: `
-    //         Jesteś asystentem zakupowym. Twoim zadaniem jest przetworzenie wyników wyszukiwania ze sklepu na poprawny JSON, gdzie pola "title" to tytuł produktu, "price" to cena (jeśli cena jest dostępna, wyodrębnij ją z opisu), "image" to link do obrazu produktu, a "link" to link do sklepu.
-    //         Ignoruj produkty, które nie mają ceny. Wybierz maksymalnie 3 produkty z najniższą ceną.
-    //         Pamietaj ze cena powinna byc oznaczona na koncu waluta jak PLN
-    //         JSON powinien zawierać tylko pola: "title", "price", "image", "link".
-    //         Dla image wybierz zdjecie najpierw 1 pozniej 2 i na koncu 3 zeby zawsze byly rozne z tych ktore dostaniesz.
-    //         `,
-    //       },
-    //       {
-    //         role: "user",
-    //         content: `Oto wyniki wyszukiwania: ${formattedResults}. Proszę, przeanalizuj dane i zwróć tylko prawidłowe wartości w formacie JSON. Nie zwracaj nic poza JSONEM!`,
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${OPENAI_API_KEY}`,
-    //     },
-    //   },
-    // );
-
-    // const aiResult = object.data.choices[0].message.content;
     const aiResult = object.data;
 
     return NextResponse.json({ answer: aiResult });
