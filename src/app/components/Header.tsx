@@ -1,21 +1,11 @@
 import { NAV_ITEMS } from "@/constants";
-import NextImage from "next/image";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 export const Header = () => {
   return (
-    <header className="container mx-auto flex max-w-7xl items-center justify-between py-4">
-      <div>
-        <h1 className="sr-only">ava</h1>
-        <Link href="/">
-          <NextImage
-            src="/images/LOGO.svg"
-            alt="AVA logo"
-            width={55}
-            height={16}
-          />
-        </Link>
-      </div>
+    <header className="flex items-center justify-between p-4">
+      <h1>LOGO</h1>
       <nav className="flex items-center gap-[58px]">
         <ul className="flex gap-4">
           {NAV_ITEMS.map(({ id, label, href }) => (
@@ -25,10 +15,16 @@ export const Header = () => {
           ))}
         </ul>
         <ul className="flex gap-4">
-          <li>
-            <Link href="/log-in" className="btn">
-              Log in
-            </Link>
+          <li className="flex items-center">
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+
+            <SignedOut>
+              <Link href="/sign-up" className="btn">
+                Log in
+              </Link>
+            </SignedOut>
           </li>
           <li>
             <Link href="/try" className="btn btn-primary text-white">
