@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .btn {
-  @apply rounded-sm;
+  @apply rounded-md;
 }
 
 .btn:hover {

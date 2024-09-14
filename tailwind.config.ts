@@ -16,6 +16,10 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "background-primary": "#E0E7FF",
+        "background-secondary": "#F3F8FF",
+        "color-black": "#333333",
+        "color-gray": "#F2F2F7",
       },
     },
   },
@@ -23,8 +27,9 @@ const config: Config = {
     themes: [
       {
         custom: {
-          primary: "#333333",
+          primary: "#4338CA",
           secondary: "#FFFFFF",
+          accent: "#333333",
         },
       },
     ],

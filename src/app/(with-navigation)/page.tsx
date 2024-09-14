@@ -6,8 +6,10 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <Hero />
-      <Features />
-      <FAQs />
+      <main>
+        <Features />
+        <FAQs />
+      </main>
     </div>
   );
 }
