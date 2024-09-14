@@ -1,7 +1,7 @@
-import { Header } from "@/components/Header";
 import NextImage from "next/image";
 import { NAV_ITEMS } from "@/constants";
 import Link from "next/link";
+import { Header } from "@/app/components/Header";
 
 export default function LayoutWithNavigation({
   children,
