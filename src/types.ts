@@ -4,3 +4,9 @@ export type NAV_ITEM = {
   href: string;
 };
 [];
+
+export type FEATURE = {
+  id: number;
+  title: string;
+  description: string;
+};
