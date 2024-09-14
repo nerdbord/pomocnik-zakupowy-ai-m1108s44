@@ -2,3 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.btn {
+  @apply rounded-sm;
+}
+
+.btn:hover {
+  @apply bg-[#f8f8f8];
+}
+
+.btn-primary:hover {
+  @apply bg-[#444444];
+}
+
+h3 {
+  @apply text-5xl;
+  @apply font-bold;
+}
