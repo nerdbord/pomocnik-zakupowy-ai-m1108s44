@@ -2,9 +2,9 @@ import { FEATURES } from "@/constants";
 
 export const Features = () => {
   return (
-    <section className="flex w-full gap-40">
+    <section className="flex w-full justify-between py-24">
       <div className="basis-1/3">
-        <h3 className="pb-8 text-5xl font-bold">How it works</h3>
+        <h3 className="pb-8">How it works</h3>
         <ul className="flex flex-col gap-4">
           {FEATURES.map(({ id, title, description }) => (
             <li
@@ -17,7 +17,7 @@ export const Features = () => {
           ))}
         </ul>
       </div>
-      <figure className="aspect-square min-h-full w-[628px] border border-black"></figure>
+      <figure className="aspect-square basis-1/2 border border-black"></figure>
     </section>
   );
 };
