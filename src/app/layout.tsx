@@ -28,10 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} container mx-auto text-primary antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden text-primary antialiased`}
       >
-        <Header />
-        {children}
+        <div className="container mx-auto max-w-7xl">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );

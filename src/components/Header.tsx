@@ -15,12 +15,12 @@ export const Header = () => {
         </ul>
         <ul className="flex gap-4">
           <li>
-            <Link href="/log-in" className="btn rounded-sm">
+            <Link href="/log-in" className="btn">
               Log in
             </Link>
           </li>
           <li>
-            <Link href="/try" className="btn btn-primary rounded-sm text-white">
+            <Link href="/try" className="btn btn-primary text-white">
               Try AI assistant
             </Link>
           </li>
