@@ -42,7 +42,7 @@ const POLISH_SYSTEM_PROMPT = `
 
 export async function POST(req: NextRequest) {
   try {
-    // Pobieramy userQuery oraz userBudget z zapytania
+
     const { userQuery, userBudget } = await req.json();
 
     const tavilyResponse = await axios.post<TavilyResponse>(

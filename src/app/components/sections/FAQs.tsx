@@ -10,7 +10,7 @@ export const FAQs = () => {
             {FAQ_ITEMS.map(({ id, question, answer }, index) => (
               <li
                 key={id}
-                className="border-color-black collapse collapse-arrow rounded-none border-b-2 px-0"
+                className="border-color-black collapse collapse-arrow rounded-none border-b-2 px-2"
               >
                 <input
                   type="radio"
