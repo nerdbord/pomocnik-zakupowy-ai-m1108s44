@@ -2,6 +2,7 @@ import { Message } from "ai";
 
 export interface ChatHistory {
   id: string;
+  results: Result[];
   title: string;
   messages: Message[];
 }
