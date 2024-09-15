@@ -4,7 +4,10 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/",
-  "/try",
+  "/try-for-free",
+  "/api/chat",
+  "/api/tavily"
+  
 ]);
 
 export default clerkMiddleware((auth, request) => {
