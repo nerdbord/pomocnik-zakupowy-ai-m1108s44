@@ -78,7 +78,7 @@ export const Chat = () => {
         },
       ],
     };
-    if (messages.length > 1) {
+    if (messages.length > 0) {
       const updatedHistories = [...chatHistories, newChat];
       localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
       setChatHistories(updatedHistories);
