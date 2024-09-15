@@ -23,7 +23,13 @@ export const Chat = () => {
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      initialMessages: [],
+      initialMessages: [
+        {
+          id: "initial",
+          role: "assistant",
+          content: "Hej, czego dzisiaj poszukujesz?",
+        },
+      ],
     });
 
   useEffect(() => {
@@ -62,11 +68,13 @@ export const Chat = () => {
         },
       ],
     };
-    const updatedHistories = [...chatHistories, newChat];
-    localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
-    setChatHistories(updatedHistories);
-    setCurrentChatId(newChatId);
-    setMessages(newChat.messages);
+    if (messages.length > 1) {
+      const updatedHistories = [...chatHistories, newChat];
+      localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
+      setChatHistories(updatedHistories);
+      setCurrentChatId(newChatId);
+      setMessages(newChat.messages);
+    }
   };
 
   const selectChat = (chatId: string) => {
@@ -114,10 +122,6 @@ export const Chat = () => {
 
         try {
           const tavilyResponse = await axios.post("/api/tavily", { userQuery });
-          const newResults = tavilyResponse.data.answer;
-          setResults(newResults);
-
-          // Update chatHistories with new results
           const updatedHistories = chatHistories.map((history) =>
             history.id === currentChatId
               ? { ...history, results: newResults }
@@ -129,6 +133,8 @@ export const Chat = () => {
           );
           setChatHistories(updatedHistories);
           setIsLoading(false);
+          setChatHistories(updatedHistories);
+          setResults(tavilyResponse.data.answer);
         } catch (error) {
           console.error("Error fetching results:", error);
           setIsLoading(false);
@@ -137,7 +143,7 @@ export const Chat = () => {
     };
 
     getResults();
-  }, [messages]);
+  }, [messages, currentChatId]);
 
   return (
     <div className="h-dvh min-h-dvh px-16 pb-20 pt-8">
