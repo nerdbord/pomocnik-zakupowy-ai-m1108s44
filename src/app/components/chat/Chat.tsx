@@ -23,7 +23,13 @@ export const Chat = () => {
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      initialMessages: [],
+      initialMessages: [
+        {
+          id: "initial",
+          role: "assistant",
+          content: "Hej, czego dzisiaj poszukujesz?",
+        },
+      ],
     });
 
   useEffect(() => {
@@ -61,11 +67,13 @@ export const Chat = () => {
         },
       ],
     };
-    const updatedHistories = [...chatHistories, newChat];
-    localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
-    setChatHistories(updatedHistories);
-    setCurrentChatId(newChatId);
-    setMessages(newChat.messages);
+    if (messages.length > 1) {
+      const updatedHistories = [...chatHistories, newChat];
+      localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
+      setChatHistories(updatedHistories);
+      setCurrentChatId(newChatId);
+      setMessages(newChat.messages);
+    }
   };
 
   const selectChat = (chatId: string) => {
@@ -112,7 +120,9 @@ export const Chat = () => {
           .trim();
 
         try {
-          const tavilyResponse = await axios.post("/api/tavily", { userQuery });
+          const tavilyResponse = await axios.post("/api/tavily", {
+            userQuery,
+          });
 
           const updatedHistories = chatHistories.map((history) =>
             history.id === currentChatId
