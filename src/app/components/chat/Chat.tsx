@@ -40,6 +40,7 @@ export const Chat = () => {
       const lastChatId = histories[histories.length - 1].id;
       setCurrentChatId(lastChatId);
       setMessages(histories[histories.length - 1].messages);
+      setResults(histories[histories.length - 1].results || []);
     } else {
       startNewChat();
     }
@@ -81,7 +82,7 @@ export const Chat = () => {
     if (selectedChat) {
       setCurrentChatId(chatId);
       setMessages(selectedChat.messages);
-      setResults(selectedChat.results);
+      setResults(selectedChat.results || []);
     }
   };
 
@@ -120,25 +121,23 @@ export const Chat = () => {
           .trim();
 
         try {
-          const tavilyResponse = await axios.post("/api/tavily", {
-            userQuery,
-          });
-
+          const tavilyResponse = await axios.post("/api/tavily", { userQuery });
           const updatedHistories = chatHistories.map((history) =>
             history.id === currentChatId
-              ? { ...history, results: tavilyResponse.data.answer }
+              ? { ...history, results: newResults }
               : history,
           );
-          console.log(updatedHistories);
           localStorage.setItem(
             "chatHistories",
             JSON.stringify(updatedHistories),
           );
+          setChatHistories(updatedHistories);
           setIsLoading(false);
           setChatHistories(updatedHistories);
           setResults(tavilyResponse.data.answer);
         } catch (error) {
           console.error("Error fetching results:", error);
+          setIsLoading(false);
         }
       }
     };
