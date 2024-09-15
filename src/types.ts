@@ -16,3 +16,19 @@ export type FAQ_ITEM = {
   answer: string;
   question: string;
 };
+
+export type RESULTS = {
+  length: number;
+  map(
+    arg0: ({
+      image,
+      title,
+      price,
+      link,
+    }: RESULTS) => import("react").JSX.Element,
+  ): import("react").ReactNode;
+  image: string;
+  title: string;
+  price: string;
+  link: string;
+};

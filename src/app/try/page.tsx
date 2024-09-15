@@ -1,11 +1,13 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { RESULTS } from "@/types";
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { Message, useChat } from "ai/react";
 import axios from "axios";
 import NextImage from "next/image";
 import Link from "next/link";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Try() {
   const initialMessages: Message[] = [
@@ -18,28 +20,9 @@ export default function Try() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     initialMessages,
   });
-  const mockedResults = [
-    {
-      title: "Adiki",
-      price: "200",
-      image: "/images/trolley.png",
-      link: "example",
-    },
-    {
-      title: "Naje",
-      price: "200",
-      image: "/images/trolley.png",
-      link: "example",
-    },
-    {
-      title: "Rybok",
-      price: "200",
-      image: "/images/trolley.png",
-      link: "example",
-    },
-  ];
+
   const { user } = useUser();
-  const [results, setResults] = useState();
+  const [results, setResults] = useState<RESULTS>();
   const chatEndRef = useRef<HTMLDivElement>(null);
   const [isPopupVisible, setIsPopupVisible] = useState<boolean>(true);
 
@@ -56,12 +39,12 @@ export default function Try() {
       console.log(lastMessage);
 
       if (
-        lastMessage.includes("Teraz szukam dla ciebie najlepszych propozycji!")
+        lastMessage.includes("Now I’ll search for the best options for you!")
       ) {
         console.log("tak");
 
         const userQuery = lastMessage
-          .replace("Teraz szukam dla ciebie najlepszych propozycji!", "")
+          .replace("Now I’ll search for the best options for you!", "")
           .trim();
 
         const tavilyResponse = await axios.post("/api/tavily", { userQuery });
@@ -193,7 +176,7 @@ export default function Try() {
 
             {results && results.length > 0 && (
               <ul className="mt-8 flex flex-col justify-center gap-4 lg:flex-row">
-                {results.map(({ image, title, price, link }) => (
+                {results.map(({ image, title, price, link }: RESULTS) => (
                   <li
                     key={title}
                     className="card card-compact bg-base-100 shadow-xl"
@@ -214,7 +197,11 @@ export default function Try() {
                         }).format(Number(price))}
                       </p>
                       <div className="card-actions justify-start">
-                        <Link href={link} className="btn btn-primary btn-xs">
+                        <Link
+                          target="_blank"
+                          href={link}
+                          className="btn btn-primary btn-xs"
+                        >
                           Check offer
                         </Link>
                       </div>
