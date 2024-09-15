@@ -11,8 +11,8 @@ AI: Hi, what are you looking for today?
 User: A phone
 AI: Which phone model are you interested in? (e.g., iPhone 13 Pro, Samsung Galaxy S21)
 User: iPhone 13 Pro
-AI: Do you have a color preference?
-User: Blue
+AI: Do you have any preference? (e.g., Color, Size)
+User: blue color 
 AI: What's your budget?
 User: 3500 PLN
 
