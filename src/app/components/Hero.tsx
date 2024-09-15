@@ -13,7 +13,7 @@ export const Hero = () => {
             Our AI shopping assistant simplifies your search for products,
             helping you find product that match your needs in no time.
           </p>
-          <Link href="/try" className="btn btn-primary text-white">
+          <Link href="/try-for-free" className="btn btn-primary text-white">
             Go shopping with ava
           </Link>
         </div>

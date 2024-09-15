@@ -46,7 +46,7 @@ export const Header = () => {
             </SignedOut>
           </li>
           <li>
-            <Link href="/try" className="btn btn-primary text-white">
+            <Link href="/try-for-free" className="btn btn-primary text-white">
               Try AI assistant
             </Link>
           </li>
@@ -103,7 +103,7 @@ export const Header = () => {
             </li>
             <li>
               <Link
-                href="/try"
+                href="/try-for-free"
                 className="btn btn-primary w-full text-center text-white"
                 onClick={toggleMobileMenu}
               >
