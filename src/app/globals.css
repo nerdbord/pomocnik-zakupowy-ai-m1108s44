@@ -10,6 +10,12 @@
   @apply bg-[#f8f8f8];
 }
 
+.btn:disabled {
+  @apply bg-primary;
+  @apply text-white;
+  opacity: 50%;
+}
+
 .btn-primary {
   @apply text-white;
 }
