@@ -57,7 +57,9 @@ export const ChatSection = ({
             <button className="btn-sm" onClick={() => setIsPopupVisible(false)}>
               Nie, dziękuję
             </button>
-            <button className="btn btn-primary btn-sm">Zmień plan</button>
+            <Link href="/" className="btn btn-primary btn-sm">
+              Zmień plan
+            </Link>
           </div>
         </div>
       )}

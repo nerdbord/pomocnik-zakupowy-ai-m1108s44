@@ -24,11 +24,11 @@ export const Chat = () => {
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
       initialMessages: [
-        {
-          id: "initial",
-          role: "assistant",
-          content: "Hej, czego dzisiaj poszukujesz?",
-        },
+        //   {
+        //     id: "initial",
+        //     role: "assistant",
+        //     content: "Hej, czego dzisiaj poszukujesz?",
+        //   },
       ],
     });
 
@@ -82,9 +82,14 @@ export const Chat = () => {
       const updatedHistories = [...chatHistories, newChat];
       localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
       setChatHistories(updatedHistories);
-      setCurrentChatId(newChatId);
-      setMessages(newChat.messages);
     }
+
+    setCurrentChatId(newChatId);
+    setMessages(newChat.messages);
+    localStorage.setItem(
+      "chatHistories",
+      JSON.stringify([...chatHistories, newChat]),
+    );
   };
 
   const selectChat = (chatId: string) => {
@@ -156,7 +161,7 @@ export const Chat = () => {
   }, [messages, currentChatId]);
 
   return (
-    <div className="h-dvh min-h-dvh px-16 pb-20 pt-8">
+    <div className="h-dvh min-h-dvh px-4 pb-20 pt-8 xl:px-16">
       <section className="flex h-full flex-col justify-between gap-10 lg:flex-row xl:gap-20">
         <SearchHistorySection
           chatHistories={chatHistories}
