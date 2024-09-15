@@ -3,17 +3,17 @@ import { FAQ_ITEM, FEATURE_ITEM, NAV_ITEM } from "@/types";
 export const NAV_ITEMS: NAV_ITEM[] = [
   {
     id: "product",
-    label: "Product",
+    label: "Produkt",
     href: "/",
   },
   {
     id: "pricing",
-    label: "Pricing",
+    label: "Cennik",
     href: "/",
   },
   {
     id: "company",
-    label: "Company",
+    label: "Firma",
     href: "/",
   },
 ];
@@ -21,44 +21,44 @@ export const NAV_ITEMS: NAV_ITEM[] = [
 export const FEATURE_ITEMS: FEATURE_ITEM[] = [
   {
     id: 0,
-    title: "Effortless product discovery",
-    description: `Our AI shopping assistant streamlines your search for products by understanding your unique preferences. Just tell it what you're looking for, and it will quickly present tailored options that match your criteria.`,
+    title: "Powiedz, czego szukasz",
+    description: `Ava usprawnia wyszukiwanie produktów według Twoich kryteriów. Wystarczy, że sprecyzujesz, czego dokładnie szukasz.`,
   },
   {
     id: 2,
-    title: "Smart search technology",
-    description: `Our assistant analyzes vast product databases to find exactly what you need. This ensures you spend less time searching and more time enjoying your purchases.`,
+    title: "Znajdź idealne produkty",
+    description: `Nasz asystent zakupowy analizuje bazy danych produktów wielu sklepów, aby znaleźć dokładnie to, czego potrzebujesz. Oszczędzasz czas i odkrywasz najlepsze oferty bez wysiłku.`,
   },
   {
     id: 3,
-    title: "Get personalized recommendations ",
-    description: `Receive personalized product suggestions based on your shopping habits and preferences. Our AI learns from your interactions, making each search more efficient and tailored to you.`,
+    title: "Otrzymaj spersonalizowane rekomendacje produktów",
+    description: `Ava dopasowuje propozycje produktów w oparciu o Twoje preferencje i zwyczaje zakupowe. Nasz system analizuje Twoje zapytania, co pozwala na coraz lepsze i bardziej precyzyjne wyniki przy każdym kolejnym wyszukiwaniu.`,
   },
 ];
 
 export const FAQ_ITEMS: FAQ_ITEM[] = [
   {
     id: 0,
-    question: "What is the benefit of creating account?",
+    question: "Dlaczego warto założyć konto?",
     answer:
-      "Creating an account is quick and simple. It allows you to save your preferences and access personalized features. Sign up today to enhance your shopping experience!",
+      "Założenie konta pozwala na zapisanie Twoich preferencji i dostęp do spersonalizowanych funkcji. Zarejestruj się już dziś, aby poprawić swoje doświadczenia zakupowe!",
   },
   {
     id: 2,
-    question: "Is there a cost to use the AI shopping assistant?",
+    question: "Ile kosztuje korzystanie z ava?",
     answer:
-      "Using the basic version of AI shopping assistant is completely free. The premium version costs $5 dollars per month.",
+      "Korzystanie z podstawowej wersji jest całkowicie bezpłatne. Wersja premium kosztuje 5 złotych miesięcznie.",
   },
   {
     id: 3,
-    question: "Is my data safe?",
+    question: "Czy moje dane są bezpieczne?",
     answer:
-      "Your privacy is our priority. We implement robust security measures to protect your data. Shop with confidence knowing your information is secure.",
+      "Twoja prywatność jest dla nas priorytetem. Stosujemy solidne środki bezpieczeństwa, aby chronić Twoje dane. ",
   },
   {
     id: 4,
-    question: "What should I do if I encounter issue or error?",
+    question: "Co zrobić, jeśli napotkam problem lub błąd?",
     answer:
-      "If you encounter an issue or error,  contact our support team through the help section for assistance.",
+      "W przypadku napotkania problemu lub błędu skontaktuj się z działem supportu poprzez email: support@ava.pl",
   },
 ];

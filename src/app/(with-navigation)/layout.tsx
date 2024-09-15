@@ -24,7 +24,7 @@ export default function LayoutWithNavigation({
                 height={16}
               />
               <address>
-                <p className="font-bold">Contact:</p>
+                <p className="font-bold">Kontakt:</p>
                 <Link href="mailto:support@ai-shopping-assistant.com">
                   support@ai-shopping-assistant.com
                 </Link>
@@ -45,15 +45,15 @@ export default function LayoutWithNavigation({
             <p className="text-center md:text-left">
               © 2024 ava. All rights reserved.
             </p>
-            <ul className="flex gap-4">
+            <ul className="flex gap-4 text-[14px] underline">
               <li>
-                <Link href="/">Privacy Policy</Link>
+                <Link href="/">Polityka prywatności</Link>
               </li>
               <li>
-                <Link href="/">Terms of Service</Link>
+                <Link href="/">Warunki użytkowania</Link>
               </li>
               <li>
-                <Link href="/">Cookies Settings</Link>
+                <Link href="/">Ustawienia Cookies</Link>
               </li>
             </ul>
           </section>

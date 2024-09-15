@@ -11,7 +11,7 @@ export const ChatTopSection = ({
         className="btn btn-info flex items-center font-normal"
         onClick={startNewChat}
       >
-        Start new chat <span className="text-lg font-bold">+</span>
+        Rozpocznij nowy chat <span className="text-lg font-bold">+</span>
       </button>
       <UserButton />
     </section>

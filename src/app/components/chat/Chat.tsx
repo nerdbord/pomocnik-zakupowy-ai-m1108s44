@@ -57,7 +57,7 @@ export const Chat = () => {
         {
           id: "initial",
           role: "assistant",
-          content: "Hi! What are you looking for today?",
+          content: "Hej, czego dzisiaj poszukujesz?",
         },
       ],
     };
@@ -103,11 +103,11 @@ export const Chat = () => {
       const lastMessage = messages[messages.length - 1].content;
 
       if (
-        lastMessage.includes("Now I’ll search for the best options for you!")
+        lastMessage.includes("Teraz szukam dla ciebie najlepszych propozycji!")
       ) {
         setIsLoading(true);
         const userQuery = lastMessage
-          .replace("Now I’ll search for the best options for you!", "")
+          .replace("Teraz szukam dla ciebie najlepszych propozycji!", "")
           .trim();
 
         try {

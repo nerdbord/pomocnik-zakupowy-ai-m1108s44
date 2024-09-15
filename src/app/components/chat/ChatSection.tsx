@@ -98,11 +98,11 @@ export const ChatSection = ({
         <div ref={chatEndRef} />
 
         {results && results.length > 0 && (
-          <ul className="mt-8  mx-0 flex flex-col justify-around gap-4 lg:justify-center  lg:flex-row items-center lg:items-stretch">
+          <ul className="mx-0 mt-8 flex flex-col items-center justify-around gap-4 lg:flex-row lg:items-stretch lg:justify-center">
             {results.map(({ image, title, price, link }) => (
               <li
                 key={title}
-                className="card card-compact bg-base-100 shadow-xl max-w-[250px] mb-2"
+                className="card card-compact mb-2 max-w-[250px] bg-base-100 shadow-xl"
                 style={{
                   boxShadow:
                     "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
@@ -125,7 +125,7 @@ export const ChatSection = ({
                         href={link}
                         className="btn btn-primary btn-xs h-[40px] w-full"
                       >
-                        Check offer
+                        Sprawdź ofertę
                       </Link>
                     </div>
                   </div>
@@ -135,40 +135,58 @@ export const ChatSection = ({
           </ul>
         )}
         {loader && (
-          <ul className="mt-8 flex flex-col justify-center gap-4 lg:flex-row">
-            <li className="card card-compact bg-[#919191] shadow-xl">
-              <figure className="h-[120px] w-[250px]">
-                <img className="skeleton h-full w-full object-contain" />
-              </figure>
-              <div className="card-body skeleton">
+          <ul className="mx-0 mt-8 flex flex-col items-center justify-around gap-4 lg:flex-row lg:items-stretch lg:justify-center">
+            <li
+              className="card skeleton card-compact mb-2 max-w-[250px] bg-[#000] shadow-xl"
+              style={{
+                boxShadow:
+                  "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+              }}
+            >
+              <figure className="h-[120px] w-[250px]"></figure>
+              <div className="card-body flex flex-col justify-between">
                 <h2 className="card-title text-sm"></h2>
-                <p className="text-xs"></p>
-                <div className="card-actions skeleton justify-start">
-                  <button className="btn skeleton btn-xs w-full"></button>
+                <div className="mt-auto">
+                  <p className="mb-2 text-right text-xs"></p>
+                  <div className="card-actions skeleton justify-start bg-[#000]">
+                    <button className="btn-skeleton btn-xs h-[40px] w-full"></button>
+                  </div>
                 </div>
               </div>
             </li>
-            <li className="card card-compact bg-[#919191] shadow-xl">
-              <figure className="h-[120px] w-[250px]">
-                <img className="skeleton h-full w-full object-contain" />
-              </figure>
-              <div className="card-body skeleton">
+            <li
+              className="card skeleton card-compact mb-2 max-w-[250px] bg-[#000] shadow-xl"
+              style={{
+                boxShadow:
+                  "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+              }}
+            >
+              <figure className="h-[120px] w-[250px]"></figure>
+              <div className="card-body flex flex-col justify-between">
                 <h2 className="card-title text-sm"></h2>
-                <p className="text-xs"></p>
-                <div className="card-actions skeleton justify-start">
-                  <button className="btn skeleton btn-xs w-full"></button>
+                <div className="mt-auto">
+                  <p className="mb-2 text-right text-xs"></p>
+                  <div className="card-actions skeleton justify-start bg-[#000]">
+                    <button className="btn-skeleton btn-xs h-[40px] w-full"></button>
+                  </div>
                 </div>
               </div>
             </li>
-            <li className="card card-compact bg-[#919191] shadow-xl">
-              <figure className="h-[120px] w-[250px]">
-                <img className="skeleton h-full w-full object-contain" />
-              </figure>
-              <div className="card-body skeleton">
+            <li
+              className="card skeleton card-compact mb-2 max-w-[250px] bg-[#000] shadow-xl"
+              style={{
+                boxShadow:
+                  "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+              }}
+            >
+              <figure className="h-[120px] w-[250px]"></figure>
+              <div className="card-body flex flex-col justify-between">
                 <h2 className="card-title text-sm"></h2>
-                <p className="text-xs"></p>
-                <div className="card-actions skeleton justify-start">
-                  <button className="btn skeleton btn-xs w-full"></button>
+                <div className="mt-auto">
+                  <p className="mb-2 text-right text-xs"></p>
+                  <div className="card-actions skeleton justify-start bg-[#000]">
+                    <button className="btn-skeleton btn-xs h-[40px] w-full"></button>
+                  </div>
                 </div>
               </div>
             </li>
@@ -180,7 +198,7 @@ export const ChatSection = ({
               <form onSubmit={handleFormSubmit} className="mt-8 flex gap-2">
                 <input
                   type="text"
-                  placeholder="Type here..."
+                  placeholder="Np. nowego telefonu z dobrą pamiecią"
                   className="bg-color-gray input mb-4 w-full"
                   value={input}
                   onChange={handleInputChange}
@@ -191,7 +209,7 @@ export const ChatSection = ({
                   disabled={!input.length}
                   aria-disabled={!input.length}
                 >
-                  Send
+                  Wyślij
                 </button>
               </form>
             )}

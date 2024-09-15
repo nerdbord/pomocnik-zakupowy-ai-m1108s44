@@ -41,19 +41,19 @@ export const Header = () => {
 
             <SignedOut>
               <Link href="/sign-in" className="btn">
-                Log in
+                Zaloguj się
               </Link>
             </SignedOut>
           </li>
           <li>
             <Link href="/try-for-free" className="btn btn-primary text-white">
-              Try AI assistant
+              Wypróbuj asystenta AI
             </Link>
           </li>
         </ul>
       </nav>
 
-      {/* Mobile Hamburger Menu Button */}
+
       <div className="md:hidden">
         <button
           onClick={toggleMobileMenu}
@@ -77,7 +77,7 @@ export const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation (shown when hamburger button is clicked) */}
+
       {isMobileMenuOpen && (
         <nav className="absolute left-0 right-0 top-16 bg-white p-4 shadow-lg md:hidden">
           <ul className="flex flex-col gap-4">
@@ -97,7 +97,7 @@ export const Header = () => {
 
               <SignedOut>
                 <Link href="/sign-in" className="btn w-full text-center">
-                  Log in
+                  Zaloguj się
                 </Link>
               </SignedOut>
             </li>
@@ -107,7 +107,7 @@ export const Header = () => {
                 className="btn btn-primary w-full text-center text-white"
                 onClick={toggleMobileMenu}
               >
-                Try AI assistant
+                Wypróbuj czat
               </Link>
             </li>
           </ul>
