@@ -125,7 +125,7 @@ export const ChatSection = ({
                         href={link}
                         className="btn btn-primary btn-xs h-[40px] w-full"
                       >
-                        Check offer
+                        Sprawdź ofertę
                       </Link>
                     </div>
                   </div>
@@ -134,7 +134,7 @@ export const ChatSection = ({
             ))}
           </ul>
         )}
-        {!loader && (
+        {loader && (
           <ul className="mx-0 mt-8 flex flex-col items-center justify-around gap-4 lg:flex-row lg:items-stretch lg:justify-center">
             <li
               className="card skeleton card-compact mb-2 max-w-[250px] bg-[#000] shadow-xl"
@@ -198,7 +198,7 @@ export const ChatSection = ({
               <form onSubmit={handleFormSubmit} className="mt-8 flex gap-2">
                 <input
                   type="text"
-                  placeholder="Type here..."
+                  placeholder="Np. nowego telefonu z dobrą pamiecią"
                   className="bg-color-gray input mb-4 w-full"
                   value={input}
                   onChange={handleInputChange}
@@ -209,7 +209,7 @@ export const ChatSection = ({
                   disabled={!input.length}
                   aria-disabled={!input.length}
                 >
-                  Send
+                  Wyślij
                 </button>
               </form>
             )}

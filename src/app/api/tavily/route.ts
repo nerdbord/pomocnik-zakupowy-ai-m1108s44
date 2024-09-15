@@ -90,8 +90,8 @@ export async function POST(req: NextRequest) {
           })
           .array(),
       }),
-      system: ENGLISH_SYSTEM_PROMPT,
-      prompt: ENGLISH_PROMPT,
+      system: POLISH_SYSTEM_PROMPT,
+      prompt: POLISH_PROMPT,
     });
 
     const aiResult = object.data;

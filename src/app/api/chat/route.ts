@@ -47,7 +47,7 @@ export async function POST(req: Request) {
 
   const result = await streamText({
     model: openai("gpt-4o"),
-    system: ENGLISH_PROMPT,
+    system: POLISH_PROMPT,
     messages: convertToCoreMessages(messages),
   });
   console.log(result);
