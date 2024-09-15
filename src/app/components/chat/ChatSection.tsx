@@ -35,7 +35,7 @@ export const ChatSection = ({
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            className="stroke-color-black h-6 w-6 shrink-0"
+            className="h-6 w-6 shrink-0 stroke-color-black"
           >
             <path
               strokeLinecap="round"
@@ -45,16 +45,19 @@ export const ChatSection = ({
             ></path>
           </svg>
           <div>
-            <h3 className="text-md">Unlock personalized shopping</h3>
-            <p className="text-color-dark-light text-sm">
-              Upgrade now to get tailored recommendations just for you.
+            <h3 className="text-md">
+              Zyskaj dostęp do spersonalizowanych sugestii
+            </h3>
+            <p className="text-sm text-color-dark-light">
+              Przejdź na plan premium, aby otrzymywać rekomendacje zakupowe
+              dopasowane do Twoich nawyków i preferencji
             </p>
           </div>
           <div>
             <button className="btn-sm" onClick={() => setIsPopupVisible(false)}>
-              No, thanks
+              Nie, dziękuję
             </button>
-            <button className="btn btn-primary btn-sm">Upgrade</button>
+            <button className="btn btn-primary btn-sm">Zmień plan</button>
           </div>
         </div>
       )}
@@ -80,7 +83,7 @@ export const ChatSection = ({
                   </SignedIn>
                   <SignedOut>
                     <img
-                      alt="Tailwind CSS chat bubble component"
+                      alt="AI avatar"
                       src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                     />
                   </SignedOut>
@@ -102,13 +105,13 @@ export const ChatSection = ({
             {results.map(({ image, title, price, link }) => (
               <li
                 key={title}
-                className="card card-compact mb-2 max-w-[250px] bg-base-100 shadow-xl"
+                className="card card-compact mb-8 max-w-[250px] bg-base-100 shadow-xl"
                 style={{
                   boxShadow:
                     "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
                 }}
               >
-                <figure className="h-[120px] w-[250px]">
+                <figure className="h-[120px] w-[200px]">
                   <img
                     src={image}
                     alt={title}
@@ -137,7 +140,7 @@ export const ChatSection = ({
         {loader && (
           <ul className="mx-0 mt-8 flex flex-col items-center justify-around gap-4 lg:flex-row lg:items-stretch lg:justify-center">
             <li
-              className="card skeleton card-compact mb-2 max-w-[250px] bg-[#000] shadow-xl"
+              className="card skeleton card-compact mb-8 max-w-[250px] bg-[#333] shadow-xl"
               style={{
                 boxShadow:
                   "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
@@ -148,14 +151,14 @@ export const ChatSection = ({
                 <h2 className="card-title text-sm"></h2>
                 <div className="mt-auto">
                   <p className="mb-2 text-right text-xs"></p>
-                  <div className="card-actions skeleton justify-start bg-[#000]">
+                  <div className="card-actions skeleton justify-start bg-[#333]">
                     <button className="btn-skeleton btn-xs h-[40px] w-full"></button>
                   </div>
                 </div>
               </div>
             </li>
             <li
-              className="card skeleton card-compact mb-2 max-w-[250px] bg-[#000] shadow-xl"
+              className="card skeleton card-compact mb-8 max-w-[250px] bg-[#333] shadow-xl"
               style={{
                 boxShadow:
                   "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
@@ -166,14 +169,14 @@ export const ChatSection = ({
                 <h2 className="card-title text-sm"></h2>
                 <div className="mt-auto">
                   <p className="mb-2 text-right text-xs"></p>
-                  <div className="card-actions skeleton justify-start bg-[#000]">
+                  <div className="card-actions skeleton justify-start bg-[#333]">
                     <button className="btn-skeleton btn-xs h-[40px] w-full"></button>
                   </div>
                 </div>
               </div>
             </li>
             <li
-              className="card skeleton card-compact mb-2 max-w-[250px] bg-[#000] shadow-xl"
+              className="card skeleton card-compact mb-8 max-w-[250px] bg-[#333] shadow-xl"
               style={{
                 boxShadow:
                   "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
@@ -184,7 +187,7 @@ export const ChatSection = ({
                 <h2 className="card-title text-sm"></h2>
                 <div className="mt-auto">
                   <p className="mb-2 text-right text-xs"></p>
-                  <div className="card-actions skeleton justify-start bg-[#000]">
+                  <div className="card-actions skeleton justify-start bg-[#333]">
                     <button className="btn-skeleton btn-xs h-[40px] w-full"></button>
                   </div>
                 </div>
@@ -199,7 +202,7 @@ export const ChatSection = ({
                 <input
                   type="text"
                   placeholder="Np. nowego telefonu z dobrą pamiecią"
-                  className="bg-color-gray input mb-4 w-full"
+                  className="input mb-4 w-full bg-color-gray"
                   value={input}
                   onChange={handleInputChange}
                 />

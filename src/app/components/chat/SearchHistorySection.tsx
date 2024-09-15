@@ -43,7 +43,7 @@ export const SearchHistorySection = ({
         />
       </Link>
       <div>
-        <h2 className="mb-4 mt-8 text-lg">Search history</h2>
+        <h2 className="mb-4 mt-8 text-lg">Historia wyszukiwań</h2>
         <ul className="mb-4 flex flex-wrap gap-4 lg:flex-col">
           {Object.entries(groupedChats).map(([topic, chats]) => (
             <li key={topic}>
@@ -64,12 +64,9 @@ export const SearchHistorySection = ({
             </li>
           ))}
         </ul>
-        <Link
-          href="/account/search-history"
-          className="border-color-black mt-8 border-b pb-1 font-medium"
-        >
-          See full search history
-        </Link>
+        <button className="disabled mt-8 cursor-not-allowed border-b border-color-black pb-1 font-medium opacity-50">
+          Zobacz całą historię
+        </button>
       </div>
     </section>
   );

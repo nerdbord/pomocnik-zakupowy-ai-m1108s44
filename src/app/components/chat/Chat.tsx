@@ -37,14 +37,24 @@ export const Chat = () => {
     setChatHistories(histories);
 
     if (histories.length > 0) {
-      const lastChatId = histories[histories.length - 1].id;
-      setCurrentChatId(lastChatId);
-      setMessages(histories[histories.length - 1].messages);
-      setResults(histories[histories.length - 1].results || []);
+      const lastChat = histories[histories.length - 1];
+      setCurrentChatId(lastChat.id);
+
+      setMessages(lastChat.messages);
+      setResults(lastChat.results || []);
     } else {
       startNewChat();
     }
   }, []);
+
+  useEffect(() => {
+    if (messages.length > 1) {
+      const updatedMessages = chatHistories.map((history) =>
+        history.id === currentChatId ? { ...history, messages } : history,
+      );
+      localStorage.setItem("chatHistories", JSON.stringify(updatedMessages));
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -122,6 +132,7 @@ export const Chat = () => {
 
         try {
           const tavilyResponse = await axios.post("/api/tavily", { userQuery });
+          const newResults = tavilyResponse.data.answer;
           const updatedHistories = chatHistories.map((history) =>
             history.id === currentChatId
               ? { ...history, results: newResults }
@@ -131,10 +142,9 @@ export const Chat = () => {
             "chatHistories",
             JSON.stringify(updatedHistories),
           );
-          setChatHistories(updatedHistories);
           setIsLoading(false);
           setChatHistories(updatedHistories);
-          setResults(tavilyResponse.data.answer);
+          setResults(newResults);
         } catch (error) {
           console.error("Error fetching results:", error);
           setIsLoading(false);
@@ -147,7 +157,7 @@ export const Chat = () => {
 
   return (
     <div className="h-dvh min-h-dvh px-16 pb-20 pt-8">
-      <section className="flex h-full flex-col justify-between gap-20 lg:flex-row">
+      <section className="flex h-full flex-col justify-between gap-10 lg:flex-row xl:gap-20">
         <SearchHistorySection
           chatHistories={chatHistories}
           selectChat={selectChat}
