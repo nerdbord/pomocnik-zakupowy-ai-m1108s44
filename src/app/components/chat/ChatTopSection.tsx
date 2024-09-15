@@ -1,5 +1,4 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import Link from "next/link";
 
 export const ChatTopSection = ({
   startNewChat,
@@ -13,10 +12,7 @@ export const ChatTopSection = ({
       </SignedIn>
       <SignedOut>
         <div className="btn">
-          <SignInButton
-            fallbackRedirectUrl="/"
-            signUpFallbackRedirectUrl="/"
-          >
+          <SignInButton fallbackRedirectUrl="/" signUpFallbackRedirectUrl="/">
             Zaloguj się
           </SignInButton>
         </div>
