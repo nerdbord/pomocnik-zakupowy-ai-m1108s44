@@ -13,9 +13,11 @@ export const ChatSection = ({
   isPopupVisible,
   setIsPopupVisible,
   chatEndRef,
+  loader,
 }: {
   messages: Message[];
-  input: string;
+    input: string;
+    loader: boolean;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   results: Result[];
@@ -118,7 +120,11 @@ export const ChatSection = ({
                     }).format(Number(price))}
                   </p>
                   <div className="card-actions justify-start">
-                    <Link href={link} className="btn btn-primary btn-xs">
+                    <Link
+                      target="_blank"
+                      href={link}
+                      className="btn btn-primary btn-xs"
+                    >
                       Check offer
                     </Link>
                   </div>
@@ -127,23 +133,69 @@ export const ChatSection = ({
             ))}
           </ul>
         )}
-        <form onSubmit={handleFormSubmit} className="mt-8 flex gap-2">
-          <input
-            type="text"
-            placeholder="Type here..."
-            className="bg-color-gray input mb-4 w-full"
-            value={input}
-            onChange={handleInputChange}
-          />
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={!input.length}
-            aria-disabled={!input.length}
-          >
-            Send
-          </button>
-        </form>
+        {loader && (
+          <ul className="mt-8 flex flex-col justify-center gap-4 lg:flex-row">
+            <li className="card card-compact bg-[#919191] shadow-xl">
+              <figure className="h-[120px] w-[250px]">
+                <img className="skeleton h-full w-full object-contain" />
+              </figure>
+              <div className="card-body skeleton">
+                <h2 className="card-title text-sm"></h2>
+                <p className="text-xs"></p>
+                <div className="card-actions skeleton justify-start">
+                  <button className="btn skeleton btn-xs w-full"></button>
+                </div>
+              </div>
+            </li>
+            <li className="card card-compact bg-[#919191] shadow-xl">
+              <figure className="h-[120px] w-[250px]">
+                <img className="skeleton h-full w-full object-contain" />
+              </figure>
+              <div className="card-body skeleton">
+                <h2 className="card-title text-sm"></h2>
+                <p className="text-xs"></p>
+                <div className="card-actions skeleton justify-start">
+                  <button className="btn skeleton btn-xs w-full"></button>
+                </div>
+              </div>
+            </li>
+            <li className="card card-compact bg-[#919191] shadow-xl">
+              <figure className="h-[120px] w-[250px]">
+                <img className="skeleton h-full w-full object-contain" />
+              </figure>
+              <div className="card-body skeleton">
+                <h2 className="card-title text-sm"></h2>
+                <p className="text-xs"></p>
+                <div className="card-actions skeleton justify-start">
+                  <button className="btn skeleton btn-xs w-full"></button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        )}
+        {!loader && (
+          <>
+            {results.length === 0 && (
+              <form onSubmit={handleFormSubmit} className="mt-8 flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Type here..."
+                  className="bg-color-gray input mb-4 w-full"
+                  value={input}
+                  onChange={handleInputChange}
+                />
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={!input.length}
+                  aria-disabled={!input.length}
+                >
+                  Send
+                </button>
+              </form>
+            )}
+          </>
+        )}
       </div>
     </section>
   );

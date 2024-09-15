@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
         include_answer: false,
         include_images: true,
         max_results: 20,
-        include_domains: ["allegro.pl"],
+        include_domains: ["amazon.com"],
       },
     );
 
