@@ -16,8 +16,8 @@ export const ChatSection = ({
   loader,
 }: {
   messages: Message[];
-    input: string;
-    loader: boolean;
+  input: string;
+  loader: boolean;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   results: Result[];
@@ -103,30 +103,31 @@ export const ChatSection = ({
               <li
                 key={title}
                 className="card card-compact bg-base-100 shadow-xl"
+                style={{
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+                }}
               >
                 <figure className="h-[120px] w-[250px]">
                   <img
                     src={image}
                     alt={title}
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-contain p-2"
                   />
                 </figure>
-                <div className="card-body">
+                <div className="card-body flex flex-col justify-between">
                   <h2 className="card-title text-sm">{title}</h2>
-                  <p className="text-xs">
-                    {new Intl.NumberFormat("pl-PL", {
-                      style: "currency",
-                      currency: "PLN",
-                    }).format(Number(price))}
-                  </p>
-                  <div className="card-actions justify-start">
-                    <Link
-                      target="_blank"
-                      href={link}
-                      className="btn btn-primary btn-xs"
-                    >
-                      Check offer
-                    </Link>
+                  <div className="mt-auto">
+                    <p className="mb-2 text-right text-xs">{price}</p>
+                    <div className="card-actions justify-start">
+                      <Link
+                        target="_blank"
+                        href={link}
+                        className="btn btn-primary btn-xs h-[40px] w-full"
+                      >
+                        Check offer
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </li>
