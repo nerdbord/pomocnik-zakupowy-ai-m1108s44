@@ -99,10 +99,10 @@ export const Chat = () => {
       const lastMessage = messages[messages.length - 1].content;
 
       if (
-        lastMessage.includes("Teraz szukam dla ciebie najlepszych propozycji!")
+        lastMessage.includes("Now I’ll search for the best options for you!")
       ) {
         const userQuery = lastMessage
-          .replace("Teraz szukam dla ciebie najlepszych propozycji!", "")
+          .replace("Now I’ll search for the best options for you!", "")
           .trim();
 
         try {
