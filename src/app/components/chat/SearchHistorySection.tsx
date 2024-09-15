@@ -2,7 +2,7 @@ import { ChatHistory } from "@/app/components/chat/types";
 import NextImage from "next/image";
 import Link from "next/link";
 
-export const SearchHistorySection =({
+export const SearchHistorySection = ({
   chatHistories,
   selectChat,
   currentChatId,
@@ -16,7 +16,7 @@ export const SearchHistorySection =({
     if (userMessages.length > 0) {
       return userMessages[0].content.slice(0, 30) + "...";
     }
-    return "Empty chat";
+    return "Nowy czat";
   };
 
   const groupedChats = chatHistories.reduce(
@@ -73,4 +73,4 @@ export const SearchHistorySection =({
       </div>
     </section>
   );
-}
+};

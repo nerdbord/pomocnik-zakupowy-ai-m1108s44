@@ -23,7 +23,13 @@ export const Chat = () => {
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      initialMessages: [],
+      initialMessages: [
+        {
+          id: "initial",
+          role: "assistant",
+          content: "Hej, czego dzisiaj poszukujesz?",
+        },
+      ],
     });
 
   useEffect(() => {
@@ -61,11 +67,13 @@ export const Chat = () => {
         },
       ],
     };
-    const updatedHistories = [...chatHistories, newChat];
-    localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
-    setChatHistories(updatedHistories);
-    setCurrentChatId(newChatId);
-    setMessages(newChat.messages);
+    if (messages.length > 1) {
+      const updatedHistories = [...chatHistories, newChat];
+      localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
+      setChatHistories(updatedHistories);
+      setCurrentChatId(newChatId);
+      setMessages(newChat.messages);
+    }
   };
 
   const selectChat = (chatId: string) => {
@@ -73,6 +81,7 @@ export const Chat = () => {
     if (selectedChat) {
       setCurrentChatId(chatId);
       setMessages(selectedChat.messages);
+      setResults(selectedChat.results);
     }
   };
 
@@ -111,8 +120,10 @@ export const Chat = () => {
           .trim();
 
         try {
-          const tavilyResponse = await axios.post("/api/tavily", { userQuery });
-          setResults(tavilyResponse.data.answer);
+          const tavilyResponse = await axios.post("/api/tavily", {
+            userQuery,
+          });
+
           const updatedHistories = chatHistories.map((history) =>
             history.id === currentChatId
               ? { ...history, results: tavilyResponse.data.answer }
@@ -124,6 +135,8 @@ export const Chat = () => {
             JSON.stringify(updatedHistories),
           );
           setIsLoading(false);
+          setChatHistories(updatedHistories);
+          setResults(tavilyResponse.data.answer);
         } catch (error) {
           console.error("Error fetching results:", error);
         }
@@ -131,7 +144,7 @@ export const Chat = () => {
     };
 
     getResults();
-  }, [messages]);
+  }, [messages, currentChatId]);
 
   return (
     <div className="h-dvh min-h-dvh px-16 pb-20 pt-8">
