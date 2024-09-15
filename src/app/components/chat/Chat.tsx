@@ -73,6 +73,7 @@ export const Chat = () => {
     if (selectedChat) {
       setCurrentChatId(chatId);
       setMessages(selectedChat.messages);
+      setResults(selectedChat.results);
     }
   };
 
@@ -112,7 +113,7 @@ export const Chat = () => {
 
         try {
           const tavilyResponse = await axios.post("/api/tavily", { userQuery });
-          setResults(tavilyResponse.data.answer);
+
           const updatedHistories = chatHistories.map((history) =>
             history.id === currentChatId
               ? { ...history, results: tavilyResponse.data.answer }
@@ -124,6 +125,8 @@ export const Chat = () => {
             JSON.stringify(updatedHistories),
           );
           setIsLoading(false);
+          setChatHistories(updatedHistories);
+          setResults(tavilyResponse.data.answer);
         } catch (error) {
           console.error("Error fetching results:", error);
         }
@@ -131,7 +134,7 @@ export const Chat = () => {
     };
 
     getResults();
-  }, [messages]);
+  }, [messages, currentChatId]);
 
   return (
     <div className="h-dvh min-h-dvh px-16 pb-20 pt-8">

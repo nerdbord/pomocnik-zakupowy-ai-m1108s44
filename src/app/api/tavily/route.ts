@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
     const formattedResults = searchResults
       .map((result) => {
         return `${result.title}: ${result.url}\nOpis: ${result.content}\nObraz: ${
-          tavilyResponse.data.images || "brak obrazu"
+          tavilyResponse.data.images[0] || "brak obrazu"
         }\n\n`;
       })
       .join("");
