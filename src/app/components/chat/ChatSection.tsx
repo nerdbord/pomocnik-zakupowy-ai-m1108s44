@@ -98,11 +98,11 @@ export const ChatSection = ({
         <div ref={chatEndRef} />
 
         {results && results.length > 0 && (
-          <ul className="mt-8 flex flex-col justify-center gap-4 lg:flex-row">
+          <ul className="mt-8  mx-0 flex flex-col justify-around gap-4 lg:justify-center  lg:flex-row items-center lg:items-stretch">
             {results.map(({ image, title, price, link }) => (
               <li
                 key={title}
-                className="card card-compact bg-base-100 shadow-xl"
+                className="card card-compact bg-base-100 shadow-xl max-w-[250px] mb-2"
                 style={{
                   boxShadow:
                     "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
@@ -112,7 +112,7 @@ export const ChatSection = ({
                   <img
                     src={image}
                     alt={title}
-                    className="h-full w-full object-contain p-2"
+                    className="h-full max-w-full object-contain p-2"
                   />
                 </figure>
                 <div className="card-body flex flex-col justify-between">

@@ -14,7 +14,7 @@ export const Chat = () => {
   const chatEndRef = useRef<HTMLDivElement>(null);
   const [isPopupVisible, setIsPopupVisible] = useState<boolean>(true);
   const [results, setResults] = useState<Result[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadChatHistories = () => {
     const histories = JSON.parse(localStorage.getItem("chatHistories") || "[]");
@@ -46,12 +46,13 @@ export const Chat = () => {
   }, [messages]);
 
   const startNewChat = () => {
-    setIsLoading(false)
-    setResults([])
+    setIsLoading(false);
+    setResults([]);
     const newChatId = Date.now().toString();
     const newChat: ChatHistory = {
       id: newChatId,
       title: `Chat ${chatHistories.length + 1}`,
+      results: [],
       messages: [
         {
           id: "initial",
@@ -104,7 +105,7 @@ export const Chat = () => {
       if (
         lastMessage.includes("Now I’ll search for the best options for you!")
       ) {
-        setIsLoading(true)
+        setIsLoading(true);
         const userQuery = lastMessage
           .replace("Now I’ll search for the best options for you!", "")
           .trim();
@@ -112,7 +113,17 @@ export const Chat = () => {
         try {
           const tavilyResponse = await axios.post("/api/tavily", { userQuery });
           setResults(tavilyResponse.data.answer);
-          setIsLoading(false)
+          const updatedHistories = chatHistories.map((history) =>
+            history.id === currentChatId
+              ? { ...history, results: tavilyResponse.data.answer }
+              : history,
+          );
+          console.log(updatedHistories);
+          localStorage.setItem(
+            "chatHistories",
+            JSON.stringify(updatedHistories),
+          );
+          setIsLoading(false);
         } catch (error) {
           console.error("Error fetching results:", error);
         }
