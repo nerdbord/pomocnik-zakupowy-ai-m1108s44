@@ -42,14 +42,14 @@ export const Chat = () => {
     }
   }, [setMessages]);
 
-  useEffect(() => {
-    if (messages.length > 1) {
-      const updatedMessages = chatHistories.map((history) =>
-        history.id === currentChatId ? { ...history, messages } : history,
-      );
-      localStorage.setItem("chatHistories", JSON.stringify(updatedMessages));
-    }
-  },  [currentChatId, messages]);
+  // useEffect(() => {
+  //   if (messages.length > 1) {
+  //     const updatedMessages = chatHistories.map((history) =>
+  //       history.id === currentChatId ? { ...history, messages } : history,
+  //     );
+  //     localStorage.setItem("chatHistories", JSON.stringify(updatedMessages));
+  //   }
+  // },  [currentChatId, messages]);
 
   useEffect(() => {
     if (chatEndRef.current) {
