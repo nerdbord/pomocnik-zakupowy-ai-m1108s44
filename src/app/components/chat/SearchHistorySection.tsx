@@ -1,9 +1,9 @@
 import { ChatHistory } from "@/app/components/chat/types";
 import NextImage from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export const SearchHistorySection = ({
-  chatHistories,
   selectChat,
   currentChatId,
 }: {
@@ -11,6 +11,25 @@ export const SearchHistorySection = ({
   selectChat: (chatId: string) => void;
   currentChatId: string | null;
 }) => {
+  const [localChatHistories, setLocalChatHistories] = useState<ChatHistory[]>(
+    [],
+  );
+
+  useEffect(() => {
+    const savedHistories = localStorage.getItem("chatHistories");
+    if (savedHistories) {
+      setLocalChatHistories(JSON.parse(savedHistories));
+    }
+  }, []);
+
+  const deleteChat = (chatId: string) => {
+    const updatedHistories = localChatHistories.filter(
+      (chat) => chat.id !== chatId,
+    );
+    setLocalChatHistories(updatedHistories);
+    localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
+  };
+
   const getChatSummary = (chat: ChatHistory) => {
     const userMessages = chat.messages.filter((msg) => msg.role === "user");
     if (userMessages.length > 0) {
@@ -19,7 +38,7 @@ export const SearchHistorySection = ({
     return "Nowy czat";
   };
 
-  const groupedChats = chatHistories.reduce(
+  const groupedChats = localChatHistories.reduce(
     (acc, chat) => {
       const topic = chat.title.split(" ")[0];
       if (!acc[topic]) {
@@ -44,7 +63,7 @@ export const SearchHistorySection = ({
       </Link>
       <div>
         <h2 className="mb-4 mt-8 text-lg">Historia wyszukiwań</h2>
-        <ul className="mb-4 flex flex-wrap gap-4 lg:flex-col">
+        <ul className="mb-4 flex max-h-[50vh] flex-wrap gap-4 overflow-scroll lg:flex-col">
           {Object.entries(groupedChats).map(([topic, chats]) => (
             <li key={topic}>
               <article className="flex flex-col gap-2">
@@ -52,11 +71,26 @@ export const SearchHistorySection = ({
                 <ul className="text-color-text-medium">
                   {chats.map((chat) => (
                     <li
-                      key={chat.id}
                       onClick={() => selectChat(chat.id)}
-                      className={`cursor-pointer ${chat.id === currentChatId ? "font-bold" : ""}`}
+                      key={chat.id}
+                      className={`my-2 flex cursor-pointer justify-between rounded-lg p-2 mx-1 ${
+                        chat.id === currentChatId ? "font-bold text-black bg-black/30" : ""
+                      } `}
+                      style={{
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+                      }}
                     >
-                      {getChatSummary(chat)}
+                      <span>
+                        {getChatSummary(chat)}
+                      </span>
+                      <button
+                        onClick={() => deleteChat(chat.id)}
+                        className="ml-2 text-red-500 hover:text-red-700"
+                        title="Usuń historię"
+                      >
+                        &#10005;
+                      </button>
                     </li>
                   ))}
                 </ul>

@@ -42,14 +42,14 @@ export const Chat = () => {
     }
   }, [setMessages]);
 
-  // useEffect(() => {
-  //   if (messages.length > 1) {
-  //     const updatedMessages = chatHistories.map((history) =>
-  //       history.id === currentChatId ? { ...history, messages } : history,
-  //     );
-  //     localStorage.setItem("chatHistories", JSON.stringify(updatedMessages));
-  //   }
-  // },  [currentChatId, messages]);
+  useEffect(() => {
+    if (messages.length > 1) {
+      const updatedMessages = chatHistories.map((history) =>
+        history.id === currentChatId ? { ...history, messages } : history,
+      );
+      localStorage.setItem("chatHistories", JSON.stringify(updatedMessages));
+    }
+  }, [chatHistories, currentChatId, messages]);
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -153,7 +153,7 @@ export const Chat = () => {
     };
 
     getResults();
-  }, [messages]);
+  }, [messages, currentChatId]);
 
   return (
     <div className="h-dvh min-h-dvh px-4 pb-20 pt-8 xl:px-16">
