@@ -119,7 +119,7 @@ export const Chat = () => {
 
   useEffect(() => {
     const getResults = async () => {
-      if (messages.length === 0) return;
+      if (messages.length === 0 || results.length > 0) return;
       const lastMessage = messages[messages.length - 1].content;
 
       if (
@@ -156,7 +156,7 @@ export const Chat = () => {
   }, [messages, currentChatId]);
 
   return (
-    <div className="h-dvh min-h-dvh px-4 pb-20 pt-8 xl:px-16">
+    <div className="min-h-dvh px-4 pb-20 pt-6 xl:px-16">
       <section className="flex h-full flex-col justify-between gap-10 lg:flex-row xl:gap-20">
         <SearchHistorySection
           chatHistories={chatHistories}
