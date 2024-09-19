@@ -1,33 +1,15 @@
-import { ChatHistory } from "@/app/components/chat/types";
+import { ChatHistory } from "@/components/chat/types";
+import { useChatStore } from "@/store/chatStore";
 import NextImage from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
-export const SearchHistorySection = ({
-  selectChat,
-  currentChatId,
-}: {
-  chatHistories: ChatHistory[];
-  selectChat: (chatId: string) => void;
-  currentChatId: string | null;
-}) => {
-  const [localChatHistories, setLocalChatHistories] = useState<ChatHistory[]>(
-    [],
-  );
-
-  useEffect(() => {
-    const savedHistories = localStorage.getItem("chatHistories");
-    if (savedHistories) {
-      setLocalChatHistories(JSON.parse(savedHistories));
-    }
-  }, []);
+export const ChatHistorySection = () => {
+  const { chatHistories, currentChatId, setCurrentChatId, setChatHistories } =
+    useChatStore();
 
   const deleteChat = (chatId: string) => {
-    const updatedHistories = localChatHistories.filter(
-      (chat) => chat.id !== chatId,
-    );
-    setLocalChatHistories(updatedHistories);
-    localStorage.setItem("chatHistories", JSON.stringify(updatedHistories));
+    const updatedHistories = chatHistories.filter((chat) => chat.id !== chatId);
+    setChatHistories(updatedHistories);
   };
 
   const getChatSummary = (chat: ChatHistory) => {
@@ -38,7 +20,7 @@ export const SearchHistorySection = ({
     return "Nowy czat";
   };
 
-  const groupedChats = localChatHistories.reduce(
+  const groupedChats = chatHistories.reduce(
     (acc, chat) => {
       const topic = chat.title.split(" ")[0];
       if (!acc[topic]) {
@@ -51,7 +33,7 @@ export const SearchHistorySection = ({
   );
 
   return (
-    <section className="basis-1/5">
+    <aside className="hidden w-1/5 md:block">
       <div className="sticky top-6">
         <Link href="/">
           <h1 className="sr-only">ava</h1>
@@ -72,9 +54,8 @@ export const SearchHistorySection = ({
                   <ul className="text-color-text-medium">
                     {chats.map((chat) => (
                       <li
-                        onClick={() => selectChat(chat.id)}
                         key={chat.id}
-                        className={`mx-1 my-2 flex cursor-pointer justify-between rounded-lg p-2 ${
+                        className={`mx-1 my-2 flex cursor-pointer justify-between rounded-lg ${
                           chat.id === currentChatId
                             ? "bg-black/30 font-bold text-black"
                             : ""
@@ -84,10 +65,15 @@ export const SearchHistorySection = ({
                             "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
                         }}
                       >
-                        <span>{getChatSummary(chat)}</span>
+                        <p
+                          className="w-full p-2"
+                          onClick={() => setCurrentChatId(chat.id)}
+                        >
+                          {getChatSummary(chat)}
+                        </p>
                         <button
                           onClick={() => deleteChat(chat.id)}
-                          className="ml-2 text-red-500 hover:text-red-700"
+                          className="ml-2 px-2 text-red-500 hover:text-red-700"
                           title="Usuń historię"
                         >
                           &#10005;
@@ -104,6 +90,6 @@ export const SearchHistorySection = ({
           </button>
         </div>
       </div>
-    </section>
+    </aside>
   );
 };
