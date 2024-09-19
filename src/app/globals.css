@@ -3,18 +3,41 @@
 @tailwind utilities;
 
 .btn {
-  @apply rounded-sm;
+  @apply rounded-md;
 }
 
 .btn:hover {
   @apply bg-[#f8f8f8];
 }
 
+.btn:disabled {
+  @apply bg-primary;
+  @apply text-white;
+  opacity: 50%;
+}
+
+.btn-primary {
+  @apply text-white;
+}
+
 .btn-primary:hover {
   @apply bg-[#444444];
 }
 
-h3 {
-  @apply text-5xl;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   @apply font-bold;
+}
+
+h3.title {
+  @apply text-5xl;
+}
+
+.cl-avatarBox {
+  width: 2.75rem;
+  height: 2.75rem;
 }
