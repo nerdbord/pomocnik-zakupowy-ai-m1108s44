@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { ChatSection } from "@/app/components/chat/ChatSection";
@@ -23,13 +24,7 @@ export const Chat = () => {
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
-      initialMessages: [
-        //   {
-        //     id: "initial",
-        //     role: "assistant",
-        //     content: "Hej, czego dzisiaj poszukujesz?",
-        //   },
-      ],
+      initialMessages: [],
     });
 
   useEffect(() => {
@@ -45,7 +40,7 @@ export const Chat = () => {
     } else {
       startNewChat();
     }
-  }, []);
+  }, [setMessages]);
 
   useEffect(() => {
     if (messages.length > 1) {
@@ -54,7 +49,7 @@ export const Chat = () => {
       );
       localStorage.setItem("chatHistories", JSON.stringify(updatedMessages));
     }
-  }, [messages]);
+  }, [chatHistories, currentChatId, messages]);
 
   useEffect(() => {
     if (chatEndRef.current) {
