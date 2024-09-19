@@ -2,6 +2,8 @@ import { ChatHistory } from "@/app/components/chat/types";
 import NextImage from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { OpenWebIcon } from "../Icons";
+
 
 export const SearchHistorySection = ({
   selectChat,
@@ -99,9 +101,13 @@ export const SearchHistorySection = ({
               </li>
             ))}
           </ul>
-          <button className="disabled mt-8 cursor-not-allowed border-b border-color-black pb-1 font-medium opacity-50">
+          <Link
+            href={"/chat-history"}
+            className="mt-8  font-medium text-black flex gap-3 w-full btn"
+          >
             Zobacz całą historię
-          </button>
+            <OpenWebIcon />
+          </Link>
         </div>
       </div>
     </section>

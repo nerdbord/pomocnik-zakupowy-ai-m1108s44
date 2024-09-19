@@ -4,6 +4,7 @@ import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { Message } from "ai";
 import Link from "next/link";
 
+
 export const ChatSection = ({
   messages,
   input,
@@ -103,7 +104,7 @@ export const ChatSection = ({
         <div ref={chatEndRef} />
 
         {results && results.length > 0 && (
-          <ul className="mx-0 mt-8 flex items-stretch flex-wrap justify-around gap-4 lg:flex-row lg:items-stretch lg:justify-center">
+          <ul className="mx-0 mt-8 flex flex-wrap items-stretch justify-around gap-4 lg:flex-row lg:items-stretch lg:justify-center">
             {results.map(({ image, title, price, link }) => (
               <li
                 key={title}
@@ -210,7 +211,7 @@ export const ChatSection = ({
                 />
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-primary flex"
                   disabled={!input.length}
                   aria-disabled={!input.length}
                 >

@@ -13,7 +13,7 @@ export const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
   return (
-    <header className="sticky top-0 bg-white py-4 shadow-md">
+    <header className="sticky top-0 bg-white py-4 shadow-md z-10">
       <div className="container mx-auto flex max-w-7xl items-center justify-between">
         <div>
           <h1 className="sr-only">ava</h1>
