@@ -1,18 +1,15 @@
-import { ChatHistory } from "@/components/chat/types";
-import { useChatStore } from "@/store/chatStore";
+import { Chat } from "@/components/chat/types";
 import NextImage from "next/image";
 import Link from "next/link";
 
 export const ChatHistorySection = () => {
-  const { chatHistories, currentChatId, setCurrentChatId, setChatHistories } =
-    useChatStore();
 
-  const deleteChat = (chatId: string) => {
-    const updatedHistories = chatHistories.filter((chat) => chat.id !== chatId);
-    setChatHistories(updatedHistories);
-  };
+    const handleDeleteChat = (chatId: string) => {
+      deleteChat(chatId);
+    };
 
-  const getChatSummary = (chat: ChatHistory) => {
+
+  const getChatSummary = (chat: Chat) => {
     const userMessages = chat.messages.filter((msg) => msg.role === "user");
     if (userMessages.length > 0) {
       return userMessages[0].content.slice(0, 30) + "...";
@@ -20,7 +17,7 @@ export const ChatHistorySection = () => {
     return "Nowy czat";
   };
 
-  const groupedChats = chatHistories.reduce(
+  const groupedChats = chatHistory.reduce(
     (acc, chat) => {
       const topic = chat.title.split(" ")[0];
       if (!acc[topic]) {
@@ -29,7 +26,7 @@ export const ChatHistorySection = () => {
       acc[topic].push(chat);
       return acc;
     },
-    {} as Record<string, ChatHistory[]>,
+    {} as Record<string, Chat[]>,
   );
 
   return (
@@ -72,7 +69,7 @@ export const ChatHistorySection = () => {
                           {getChatSummary(chat)}
                         </p>
                         <button
-                          onClick={() => deleteChat(chat.id)}
+                          onClick={() => handleDeleteChat(chat.id)}
                           className="ml-2 px-2 text-red-500 hover:text-red-700"
                           title="Usuń historię"
                         >

@@ -2,7 +2,6 @@
 
 import { HamburgerButton } from "@/components/HamburgerButton";
 import { LogoButton } from "@/components/LogoButton";
-import { useChatStore } from "@/store/chatStore";
 import { UserButton } from "@clerk/nextjs";
 import { useState } from "react";
 
@@ -10,11 +9,10 @@ export default function TryForFreeLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const [isAsideOpen, setIsAsideOpen] = useState(false);
-  const { addNewChat } = useChatStore();
 
   return (
     <div>
-      <header className="h-header-height fixed left-0 top-0 z-40 flex w-full items-center bg-white shadow-md">
+      <header className="fixed left-0 top-0 z-40 flex h-header-height w-full items-center bg-white shadow-md">
         <div className="relative mx-auto flex w-full max-w-7xl items-center justify-between px-6 md:container">
           <LogoButton />
           <div className="flex items-center gap-6 md:hidden">
@@ -25,12 +23,7 @@ export default function TryForFreeLayout({
             />
           </div>
           <div className="hidden md:block">
-            <button
-              className="btn mr-4"
-              onClick={() =>
-                addNewChat()
-              }
-            >
+            <button className="btn mr-4">
               Nowy czat
             </button>
             <UserButton />
