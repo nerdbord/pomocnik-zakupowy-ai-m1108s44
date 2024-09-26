@@ -18,17 +18,25 @@ export const ChatSection = () => {
 
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
-  const { messages, input, handleInputChange, handleSubmit, setMessages } =
-    useChat({
-      initialMessages: [
-        {
-          id: "initial",
-          role: "assistant",
-          content: "Cześć, czego dzisiaj szukasz?",
-          createdAt: new Date(),
-        },
-      ],
-    });
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    setMessages,
+    error,
+    reload,
+  } = useChat({
+    keepLastMessageOnError: true,
+    initialMessages: [
+      {
+        id: "initial",
+        role: "assistant",
+        content: "Cześć, czego dzisiaj szukasz?",
+        createdAt: new Date(),
+      },
+    ],
+  });
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -129,9 +137,43 @@ export const ChatSection = () => {
             </li>
           ))}
         </ul>
+
+        {error && (
+          <div className="flex flex-col items-center gap-4 py-8 text-center text-red-500">
+            {error.message.includes("Too many requests per minute") ? (
+              <>
+                <div>
+                  Wykorzystałeś limit zapytań na minutę. Spróbuj ponownie za
+                  minutę.
+                </div>
+                <button
+                  type="button"
+                  className="btn text-color-black"
+                  onClick={() => reload()}
+                >
+                  Ponów
+                </button>
+              </>
+            ) : error.message.includes("Too many requests per day") ? (
+              <>
+                <div>
+                  Wykorzystałeś swój dzienny limit. Spróbuj ponownie za 24h.
+                </div>
+              </>
+            ) : (
+              <>
+                <div>Wystąpił nieoczekiwany problem. Spróbuj jeszcze raz</div>
+                <button type="button" onClick={() => reload()}>
+                  Ponów
+                </button>
+              </>
+            )}
+          </div>
+        )}
+
         <div ref={chatEndRef} />
 
-        {!isOfferShown && (
+        {!isOfferShown && !error && (
           <form onSubmit={handleSubmit} className="mt-8 flex gap-2">
             <input
               type="text"

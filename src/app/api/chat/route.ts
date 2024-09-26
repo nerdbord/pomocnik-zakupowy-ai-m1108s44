@@ -2,9 +2,23 @@ import { convertToCoreMessages, streamText } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { z } from "zod";
 import axios from "axios";
+import { Ratelimit } from "@upstash/ratelimit";
+import { kv } from "@vercel/kv";
 
 import { MAIN_ASSISTANT_PROMPT } from "@/lib/Agents/prompts";
+import { NextResponse } from "next/server";
 
+const rateLimitPerMinute = new Ratelimit({
+  redis: kv,
+  limiter: Ratelimit.slidingWindow(15, "1 m"),
+});
+
+const rateLimitPerDay = new Ratelimit({
+  redis: kv,
+  limiter: Ratelimit.slidingWindow(60, "24 h"),
+});
+
+export const runtime = "edge";
 export const maxDuration = 30;
 
 const searchGoogle = async (query: string) => {
@@ -26,6 +40,30 @@ const searchGoogle = async (query: string) => {
 };
 
 export async function POST(req: Request) {
+  const ip = req.headers.get("x-forwarded-for");
+  const { success: successPerMinute } = await rateLimitPerMinute.limit(
+    `ratelimit_minute_${ip}`,
+  );
+  const { success: successPerDay } = await rateLimitPerDay.limit(
+    `ratelimit_daily_${ip}`,
+  );
+
+  if (!successPerMinute) {
+    return NextResponse.json(
+      {
+        message: "Too many requests per minute, please try again later.",
+      },
+      { status: 429 },
+    );
+  } else if (!successPerDay) {
+    return NextResponse.json(
+      {
+        message: "Too many requests per day, please try again in 24 hours.",
+      },
+      { status: 429 },
+    );
+  }
+
   const { messages } = await req.json();
 
   const result = await streamText({
