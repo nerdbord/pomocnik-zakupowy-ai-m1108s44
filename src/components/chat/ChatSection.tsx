@@ -16,7 +16,7 @@ export const ChatSection = () => {
   const { isNewChat, setNewChat } = useChatContext();
   const [isOfferShown, setIsOfferShown] = useState<boolean>(false);
 
-  const [, setIsSearching] = useState<boolean>(false);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
     useChat({
@@ -36,7 +36,7 @@ export const ChatSection = () => {
         behavior: "smooth",
       });
     }
-  }, [messages]);
+  }, [messages, isSearching]);
 
   useEffect(() => {
     if (isNewChat) {
@@ -93,9 +93,8 @@ export const ChatSection = () => {
                     } = toolInvocation;
 
                     return "result" in toolInvocation ? (
-                      <div key={toolCallId}>
+                      <div key={`results-${toolCallId}`}>
                         <ChatMessageItem
-                          key={toolCallId}
                           message={{
                             id: "result",
                             role: "assistant",
@@ -104,14 +103,13 @@ export const ChatSection = () => {
                         />
                         <ul className="mx-0 mt-8 flex flex-wrap items-stretch justify-around gap-4 lg:flex-row lg:items-stretch lg:justify-center">
                           {toolInvocation.result.map((item: Result) => (
-                            <ChatResultItem key={Math.random()} result={item} />
+                            <ChatResultItem key={item.link} result={item} />
                           ))}
                         </ul>
                       </div>
                     ) : (
-                      <>
+                      <div key={`loadingresults-${toolCallId}`}>
                         <ChatMessageItem
-                          key={toolCallId}
                           message={{
                             id: "searching",
                             role: "assistant",
@@ -123,7 +121,7 @@ export const ChatSection = () => {
                           <ChatResultItemSkeleton />
                           <ChatResultItemSkeleton />
                         </ul>
-                      </>
+                      </div>
                     );
                   },
                 )
