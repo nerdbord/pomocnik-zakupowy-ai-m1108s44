@@ -1,15 +1,15 @@
 import { Message } from "ai";
 
-export interface ChatHistory {
+export type Chat = {
   id: string;
   results: Result[];
   title: string;
   messages: Message[];
-}
+};
 
-export interface Result {
+export type Result = {
   title: string;
   price: string;
   image: string;
   link: string;
-}
+};
