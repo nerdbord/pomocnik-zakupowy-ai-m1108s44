@@ -10,7 +10,7 @@ export const ChatMessageItem = ({
   const { user } = useUser();
 
   return (
-    <li className={`chat ${role === "assistant" ? "chat-start" : "chat-end"}`}>
+    <div className={`chat ${role === "assistant" ? "chat-start" : "chat-end"}`}>
       <div className="avatar chat-image">
         <div className="w-10 rounded-full">
           <SignedIn>
@@ -36,6 +36,6 @@ export const ChatMessageItem = ({
       >
         {content}
       </div>
-    </li>
+    </div>
   );
 };
