@@ -49,7 +49,7 @@ export const ChatSection = () => {
         },
       ]);
       setNewChat(false);
-      setIsSearching(false);
+      setIsOfferShown(false);
     }
   }, [isNewChat, setMessages, setNewChat]);
 
