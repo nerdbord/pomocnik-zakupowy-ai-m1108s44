@@ -37,7 +37,7 @@ export const ChatSection = () => {
       },
     ],
   });
-  console.log(error?.message);
+
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({
