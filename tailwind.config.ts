@@ -13,6 +13,9 @@ const config: Config = {
       },
     },
     extend: {
+      spacing: {
+        "header-height": "80px",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

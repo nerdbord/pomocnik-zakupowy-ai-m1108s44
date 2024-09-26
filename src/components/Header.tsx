@@ -3,8 +3,9 @@
 import { NAV_ITEMS } from "@/constants";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import NextImage from "next/image";
 import { useState } from "react";
+import { LogoButton } from "@/components/LogoButton";
+import { HamburgerButton } from "@/components/HamburgerButton";
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,17 +16,7 @@ export const Header = () => {
   return (
     <header className="sticky top-0 bg-white py-4 shadow-md">
       <div className="container mx-auto flex max-w-7xl items-center justify-between">
-        <div>
-          <h1 className="sr-only">ava</h1>
-          <Link href="/">
-            <NextImage
-              src="/images/LOGO.svg"
-              alt="AVA logo"
-              width={55}
-              height={16}
-            />
-          </Link>
-        </div>
+        <LogoButton />
         <nav className="hidden items-center gap-[58px] md:flex">
           <ul className="flex gap-4">
             {NAV_ITEMS.map(({ id, label, href }) => (
@@ -55,26 +46,7 @@ export const Header = () => {
         </nav>
 
         <div className="md:hidden">
-          <button
-            onClick={toggleMobileMenu}
-            className="hamburger focus:outline-none"
-            aria-label="Toggle navigation"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-8 w-8"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
+          <HamburgerButton onClick={toggleMobileMenu} />
         </div>
 
         {isMobileMenuOpen && (
