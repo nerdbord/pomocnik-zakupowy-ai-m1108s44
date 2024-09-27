@@ -4,7 +4,7 @@ import { generateObject } from "ai";
 import { z } from "zod";
 import { openai } from "@ai-sdk/openai";
 
-import { PROMPT_CHOOSE_BEST_FROM_GOOGLE_RESULTS } from "@/lib/Agents/prompts";
+import { PROMPT_CHOOSE_BEST_FROM_GOOGLE_RESULTS } from "@/lib/chat/prompts";
 
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
 const RESULTS_LIMIT = 20;

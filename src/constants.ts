@@ -1,6 +1,6 @@
-import { FAQ_ITEM, FEATURE_ITEM, NAV_ITEM } from "@/types";
+import { FaqItem, FeatureItem, NavItem } from "@/types";
 
-export const NAV_ITEMS: NAV_ITEM[] = [
+export const NAV_ITEMS: NavItem[] = [
   {
     id: "product",
     label: "Produkt",
@@ -18,7 +18,7 @@ export const NAV_ITEMS: NAV_ITEM[] = [
   },
 ];
 
-export const FEATURE_ITEMS: FEATURE_ITEM[] = [
+export const FEATURE_ITEMS: FeatureItem[] = [
   {
     id: 0,
     title: "Powiedz, czego szukasz",
@@ -36,7 +36,7 @@ export const FEATURE_ITEMS: FEATURE_ITEM[] = [
   },
 ];
 
-export const FAQ_ITEMS: FAQ_ITEM[] = [
+export const FAQ_ITEMS: FaqItem[] = [
   {
     id: 0,
     question: "Dlaczego warto założyć konto?",

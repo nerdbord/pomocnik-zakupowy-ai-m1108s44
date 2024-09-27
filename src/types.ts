@@ -1,34 +1,17 @@
-export type NAV_ITEM = {
+export type NavItem = {
   id: string;
   label: string;
   href: string;
 };
-[];
 
-export type FEATURE_ITEM = {
+export type FeatureItem = {
   id: number;
   title: string;
   description: string;
 };
 
-export type FAQ_ITEM = {
+export type FaqItem = {
   id: number;
   answer: string;
   question: string;
-};
-
-export type RESULTS = {
-  length: number;
-  map(
-    arg0: ({
-      image,
-      title,
-      price,
-      link,
-    }: RESULTS) => import("react").JSX.Element,
-  ): import("react").ReactNode;
-  image: string;
-  title: string;
-  price: string;
-  link: string;
 };

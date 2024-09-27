@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const ChatPopup = ({ onClick }: Readonly<{ onClick: () => void }>) => {
   return (
-    <div role="alert" className="alert alert-info">
+    <div role="alert" className="alert alert-info mb-6">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

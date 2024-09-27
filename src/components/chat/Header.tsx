@@ -3,7 +3,7 @@ import { UserButton } from "@clerk/nextjs";
 import React, { useState } from "react";
 import { HamburgerButton } from "../HamburgerButton";
 import { LogoButton } from "../LogoButton";
-import { useChatContext } from "@/app/context/ChatContext";
+import { useChatContext } from "@/context/ChatContext";
 
 export default function Header() {
   const [isAsideOpen, setIsAsideOpen] = useState<boolean>(false);
@@ -16,7 +16,7 @@ export default function Header() {
         <div className="flex items-center gap-6 md:hidden">
           <button
             onClick={() => {
-              setNewChat(true); 
+              setNewChat(true);
             }}
             className="btn"
           >
@@ -30,7 +30,7 @@ export default function Header() {
         <div className="hidden md:block">
           <button
             onClick={() => {
-              setNewChat(true); 
+              setNewChat(true);
             }}
             className="btn mr-4"
           >

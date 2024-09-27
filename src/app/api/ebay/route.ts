@@ -9,7 +9,7 @@ import {
   PROMPT_CHOOSE_BEST_RESULT,
   PROMPT_CONVERT_SEARCH_FOR_EBAY,
   PROMPT_PREPARE_GOOGLE_SEARCH_QUERY,
-} from "./../../../lib/Agents/prompts";
+} from "../../../lib/chat/prompts";
 
 const ConvertedInput = z.object({
   query: z.string(),
@@ -115,5 +115,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
-

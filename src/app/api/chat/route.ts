@@ -4,10 +4,9 @@ import { z } from "zod";
 import axios from "axios";
 import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from "@vercel/kv";
-
-
-import { MAIN_ASSISTANT_PROMPT } from "@/lib/Agents/prompts";
 import { NextResponse } from "next/server";
+
+import { MAIN_ASSISTANT_PROMPT } from "@/lib/chat/prompts";
 
 const rateLimitPerMinute = new Ratelimit({
   redis: kv,
@@ -16,7 +15,7 @@ const rateLimitPerMinute = new Ratelimit({
 
 const rateLimitPerDay = new Ratelimit({
   redis: kv,
-  limiter: Ratelimit.slidingWindow(60, "24 h"),
+  limiter: Ratelimit.slidingWindow(100, "24 h"),
 });
 
 export const runtime = "edge";
@@ -36,13 +35,9 @@ const searchGoogle = async (query: string) => {
   } catch (error) {
     console.error("Error from searchGoogle tool: ", error);
 
-
     return;
   }
 };
-
-
-
 
 export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for");
