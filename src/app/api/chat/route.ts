@@ -15,7 +15,7 @@ const rateLimitPerMinute = new Ratelimit({
 
 const rateLimitPerDay = new Ratelimit({
   redis: kv,
-  limiter: Ratelimit.slidingWindow(100, "24 h"),
+  limiter: Ratelimit.slidingWindow(60, "24 h"),
 });
 
 export const runtime = "edge";
