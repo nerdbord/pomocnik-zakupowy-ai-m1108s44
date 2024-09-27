@@ -18,6 +18,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "ava – Shopping Assistant",
   description: "Let's buy something!",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -29,7 +32,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} text-color-black overflow-x-hidden antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden text-color-black antialiased`}
         >
           {children}
         </body>
