@@ -115,7 +115,7 @@ export const ChatSection = () => {
                           ))}
                         </ul>
                       </div>
-                    ) : (
+                    ) : !error && (
                       <div key={`loadingresults-${toolCallId}`}>
                         <ChatMessageItem
                           message={{
@@ -163,7 +163,11 @@ export const ChatSection = () => {
             ) : (
               <>
                 <div>Wystąpił nieoczekiwany problem. Spróbuj jeszcze raz</div>
-                <button type="button" onClick={() => reload()}>
+                <button
+                  type="button"
+                  className="btn text-color-black"
+                  onClick={() => reload()}
+                >
                   Ponów
                 </button>
               </>
